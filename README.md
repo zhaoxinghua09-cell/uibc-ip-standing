@@ -18,7 +18,7 @@
 
 ```bash
 git clone https://github.com/zhaoxinghua09-cell/uibc-ip-standing && cd uibc-ip-standing
-python3 scripts/verify_min.py            # 10 项检查，PASS/FAIL 逐行打印
+python scripts/verify_min.py      # 10 项检查，PASS/FAIL 逐行打印（若系统只有 python3，改成 python3）
 ```
 
 也可以 `./verify.sh`（同一件事的 shell 包装）。检查项：`ROOT.txt` sha256、文件内 root、文件数、连续性哈希链、连续性未停更、主张签名 Ed25519（有 `cryptography` 则实签，无则 WARN 而非 PASS）、DID 公钥对账、DID 在线解析、Rekor v1 在线在册；`--offline` 跳过联网项。适合直接塞进别人的 CI。
