@@ -1,17 +1,17 @@
 {
-  "checked_at_local": "2026-11-26T16:30:36+08:00",
+  "checked_at_local": "2026-11-26T20:29:32+08:00",
   "level": "OK",
   "checks": {
     "repo": {
       "http": 200,
       "visibility": "public",
-      "pushed_at": "2026-11-26T08:30:05Z",
+      "pushed_at": "2026-11-26T12:28:30Z",
       "ok": true
     },
     "ci": {
       "http": 200,
       "workflow": "verify-commitments",
-      "head_sha": "9e37926287c3",
+      "head_sha": "5bdd24a6d64e",
       "conclusion": "success",
       "ok": true
     },
@@ -26,7 +26,7 @@
       "http": 200,
       "logIndex": 4121954662,
       "integratedTime": 1795681387,
-      "inclusionProof_hashes": 28,
+      "inclusionProof_hashes": 30,
       "ok": true
     }
   },

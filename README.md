@@ -33,7 +33,8 @@
 
 ## 三、自己核（不需要我们的工具）
 
-0. **一键复验（最省事）**：`pwsh -File verify_public.ps1` —— 它会在临时目录克隆本仓、建独立虚拟环境装 `cryptography`、跑 `scripts/selfcheck.py`，再核对线上索引页根值、Rekor 条目 `logIndex`、仓内敏感信息（私钥/PAT/`sk-` 应为 0 命中）。通过输出 `RESULT: PASS`，退出码 0。已在干净目录实测通过（`files checked: 44` / `RESULT: OK`）。
+0. **一键复验（最省事）**：`pwsh -File verify_public.ps1` —— 它会在临时目录克隆本仓、建独立虚拟环境装 `cryptography`、跑 `scripts/selfcheck.py`，再核对线上索引页根值、Rekor 条目 `logIndex`、仓内敏感信息（私钥/PAT/`sk-` 应为 0 命中）。通过输出 `RESULT: PASS`，退出码 0。已在干净目录 + 独立 venv 实测通过（`files checked: 46` / `RESULT: OK`）。
+   若你的网络到 `github.com:443` 不通但能到 Pages（实测有这种网络），可以只做不动克隆的那几项：下载 `attest/ROOT.txt` 求 sha256（应为 `dda8ccf1…992e72`）、比对 `index.json` 的根值、查 Rekor 条目 `logIndex`。这套"仅 HTTP"核对已在第二台机器上跑通。
 1. **核 ROOT.txt**：`sha256sum attest/ROOT.txt` → 应为 `dda8ccf1…992e72`（与 `index.json` 一致）。
 2. **核区块**：任取 977354 / 977367 / 977390，到 blockstream.info 与 mempool.space 查两次，比对区块哈希与 merkle root；两源一致才算锚定成立。
 3. **核签名**：签名覆盖的是 `CLAIM.json` 的**规范字节**（`sort_keys=True, separators=(",", ":"), ensure_ascii=False` 的 UTF-8 序列化），不是原文件字节——原文件带缩进，直接对它验签会失败。用公钥验：
