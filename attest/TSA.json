@@ -1,17 +1,17 @@
 {
   "tsa_url": "http://timestamp.digicert.com",
   "tsa_name": "digicert",
-  "queried_at_local": "2026-11-26T12:50:30+0800",
+  "queried_at_local": "2026-11-26T21:37:50+0800",
   "target_file": "ip/out/ROOT.txt",
   "hash_algorithm": "sha512",
   "imprint_matches": true,
   "root_sha256": "dda8ccf18d4f1cf1eb62a804fc1e7d1cfcb884f37283d6ead4e0260072992e72",
   "root_sha512": "196b77c1ff8a93e3fd3fc17603eab9e4e43e0ee442b891e96f850dfb08535659d870c9bc8b1bc1e84362340a95c09f94b724b6b209eb19e6a335b4aeadcf738d",
-  "gen_time_utc": "2026-11-26T04:50:28+00:00",
+  "gen_time_utc": "2026-11-26T13:37:41+00:00",
   "pki_status": 0,
   "status_meaning": "granted",
   "token_present": true,
-  "token_reused": true,
+  "token_reused": false,
   "chain_verified": true,
   "signature_verified": true,
   "message_digest_verified": true,
@@ -29,36 +29,51 @@
     {
       "tsa": "digicert",
       "verified": true,
-      "gen_time_utc": "2026-11-26T04:50:28+00:00",
+      "gen_time_utc": "2026-11-26T13:37:41+00:00",
       "top_in_public_roots": true,
       "top_subject": "CN=DigiCert Trusted Root G4,OU=www.digicert.com,O=DigiCert Inc,C=US"
     },
     {
       "tsa": "certum",
       "verified": true,
-      "gen_time_utc": "2026-11-26T04:50:29+00:00",
+      "gen_time_utc": "2026-11-26T13:37:42+00:00",
       "top_in_public_roots": true,
       "top_subject": "CN=Certum Trusted Network CA 2,OU=Certum Certification Authority,O=Unizeto Technologies S.A.,C=PL"
     },
     {
       "tsa": "apple",
       "verified": true,
-      "gen_time_utc": "2026-11-26T04:50:29+00:00",
+      "gen_time_utc": "2026-11-26T13:37:43+00:00",
       "top_in_public_roots": false,
       "top_subject": "CN=Apple Root CA,OU=Apple Certification Authority,O=Apple Inc.,C=US"
     },
     {
       "tsa": "freetsa",
       "verified": true,
-      "gen_time_utc": "2026-11-26T04:50:30+00:00",
+      "gen_time_utc": "2026-11-26T13:37:44+00:00",
       "top_in_public_roots": false,
       "top_subject": "C=DE,ST=Bayern,L=Wuerzburg,1.2.840.113549.1.9.1=busilezas@gmail.com,CN=www.freetsa.org,OU=Root CA,O=Free TSA"
+    },
+    {
+      "tsa": "sectigo",
+      "verified": true,
+      "gen_time_utc": "2026-11-26T13:37:45+00:00",
+      "top_in_public_roots": true,
+      "top_subject": "CN=USERTrust RSA Certification Authority,O=The USERTRUST Network,L=Jersey City,ST=New Jersey,C=US"
+    },
+    {
+      "tsa": "globalsign",
+      "verified": true,
+      "gen_time_utc": "2026-11-26T13:37:49+00:00",
+      "top_in_public_roots": true,
+      "top_subject": "CN=GlobalSign,O=GlobalSign,OU=GlobalSign Root CA - R6"
     }
   ],
   "probes_file": "out/TSA_PROBES.json",
+  "tokens_dir": "out/tsa_tokens/",
   "ltv": {
     "tsa": "digicert",
-    "collected_at_local": "2026-11-26T13:09:04+0800",
+    "collected_at_local": "2026-11-26T21:37:50+0800",
     "certs": [
       {
         "file": "out\\tsa_ltv\\digicert\\chain_01.pem",

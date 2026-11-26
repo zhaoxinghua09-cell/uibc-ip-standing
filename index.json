@@ -1,6 +1,6 @@
 {
   "schema": "uibc-ip-public-index/1",
-  "generated_at_local": "2026-11-26T21:33:21+0800",
+  "generated_at_local": "2026-11-26T21:38:55+0800",
   "subject": {
     "name": "IP 权属证据链（2683 文件集合）",
     "claim_id": "UIBC-IP-20261126"
@@ -51,7 +51,7 @@
   ],
   "rfc3161": {
     "name": "digicert",
-    "gen_time_utc": "2026-11-26T04:50:28+00:00",
+    "gen_time_utc": "2026-11-26T13:37:41+00:00",
     "chain_verified": true,
     "imprint_matches": true,
     "guard_level": "OK"

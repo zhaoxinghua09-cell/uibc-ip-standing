@@ -30,7 +30,7 @@
 | 锚 | 明细 | 独立复核方式 |
 |---|---|---|
 | 比特币区块（OpenTimestamps） | 977354 / 977367 / 977390，双源（blockstream.info + mempool.space）区块头比对一致 | 按高度查区块，核对区块哈希与 merkle root |
-| RFC3161 时间戳 | DigiCert，genTime `2026-11-26T12:50:28+08:00`（= 04:50:28Z），sha512 `196b77c1…738d` 即 `sha512(ROOT.txt)` | `sha512sum ROOT.txt` 比对令牌 imprint；或直接看 `attest/TSA.json` 的验签字段 |
+| RFC3161 时间戳 | 主令牌 DigiCert，genTime `2026-11-26T12:50:28+08:00`（= 04:50:28Z），sha512 `196b77c1…738d` 即 `sha512(ROOT.txt)`；**六家 TSA 同摘要取证、全部验签通过，其中 4 家链到公共根**（DigiCert / Certum / Sectigo→USERTrust RSA / GlobalSign R6） | `sha512sum ROOT.txt` 比对令牌 imprint；明细见 `attest/TSA.json` 与 `attest/TSA_PROBES.json` |
 | 主张签名 | Ed25519，公钥指纹 `866dab20c9ebb067ef38db75ee3f684c275b1fcce21984355ba77decb6a0468e`，签名已再上链 | 用 `attest/CLAIMANT_PUBKEY.pem` 验 `attest/CLAIM.json` + `.sig` |
 | **Sigstore Rekor 公共透明日志（v1）** | `logIndex=4121954662`，`integratedTime=1795681387` → **2026-11-26T08:23:07Z**；入证证明 27 个 hash、`treeSize=4000053123`；条目 UUID `108e9186…50192f4c9ebb5150b3bb` | 直接查 `https://rekor.sigstore.dev/api/v1/log/entries/108e9186e8c5677a55a93624154410a2e0ac514c94f8356c6fbb1f246f1201922f4c9ebb5150b3bb`；本地副本 [`attest/REKOR_PROOF.json`](attest/REKOR_PROOF.json) |
 | **Sigstore Rekor v2（2025 新日志）** | `logIndex=217674183`，`treeSize=217674192`，入证 18 个 hash，`rootHash=403290e1…5511e8`；签名钥为 **ECDSA P-256 副钥**（纯 Ed25519 不被 v2 的 hashedrekord 接受），公钥 [`attest/REKOR_V2_PUBKEY.pem`](attest/REKOR_V2_PUBKEY.pem)；日志 checkpoint 现由 **4 家外部 witness 联签**（krabbel.ct.ipng.ch、witness.stagemole.eu、witness.navigli.sunlight.geomys.org、staging.witness.transparency.goog），快照见 [`attest/REKOR_V2_CHECKPOINT.txt`](attest/REKOR_V2_CHECKPOINT.txt) | `python scripts/verify_rekor_v2.py` 会自算 leaf→root 与验签；明细见 [`attest/REKOR_V2_VERIFY.json`](attest/REKOR_V2_VERIFY.json)。v2 无 SET，`integratedTime=0` 属正常，时间以 RFC3161 为准 |
@@ -66,7 +66,7 @@ print("signature OK")
 ## 四、为什么这些数值不易被伪造
 
 - 区块哈希无法凭空构造，修改一个字节就会破坏整条链到区块头的路径；
-- 三个不同高度的区块 + 四家 TSA（其中两家链到公共根）+ 自持密钥签名，任一轨被攻破，其余轨仍可支撑；
+- 三个不同高度的区块 + 六家 TSA（其中四家链到公共根）+ 自持密钥签名 + 两个版本公共透明日志（v1 `rekor.sigstore.dev`、v2 `log2025-1`），任一轨被攻破，其余轨仍可支撑；
 - 台账只增、链头与树头公开：**改旧行必被发现**（但"瞒着不写"与"分叉"本地无法自证，见边界）。
 
 ## 五、明确不主张（先看这里）
@@ -102,4 +102,4 @@ PUBLISH_SCOPE.md             公开范围与排除项、以及为什么排除
 
 ### English summary
 
-A public commitment record for a private IP evidence chain: 2,683 files → Merkle root `bd08d9b2…7773a` → `ROOT.txt` → Bitcoin blocks 977354/977367/977390 (OpenTimestamps, dual-source verified) + a DigiCert RFC3161 timestamp (genTime 2026-11-26T04:50:28Z) + an Ed25519 authorship claim (fingerprint `866dab20…0468e`). Only commitments are published; source files, private keys and file listings are not. This is **not** a notarization and makes **no** ownership endorsement. Verification requires no trust in us: recompute the hashes, check the blocks on a public explorer, verify the signature with the published public key.
+A public commitment record for a private IP evidence chain: 2,683 files → Merkle root `bd08d9b2…7773a` → `ROOT.txt` → Bitcoin blocks 977354/977367/977390 (OpenTimestamps, dual-source verified) + a DigiCert RFC3161 timestamp (genTime 2026-11-26T04:50:28Z; six TSAs return tokens for the same digest, all signature-verified, four chaining to public roots) + an Ed25519 authorship claim (fingerprint `866dab20…0468e`) + entries in both Rekor v1 and v2 public transparency logs. Only commitments are published; source files, private keys and file listings are not. This is **not** a notarization and makes **no** ownership endorsement. Verification requires no trust in us: recompute the hashes, check the blocks on a public explorer, verify the signature with the published public key.

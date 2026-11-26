@@ -46,8 +46,8 @@
   ],
   "rfc3161": {
     "tsa": "digicert",
-    "gen_time_utc": "2026-11-26T04:50:28+00:00",
-    "gen_time_original_field": "2026-11-26T04:50:28+00:00",
+    "gen_time_utc": "2026-11-26T13:37:41+00:00",
+    "gen_time_original_field": "2026-11-26T13:37:41+00:00",
     "hash_algorithm": "sha512",
     "imprint_sha512": "196b77c1ff8a93e3fd3fc17603eab9e4e43e0ee442b891e96f850dfb08535659d870c9bc8b1bc1e84362340a95c09f94b724b6b209eb19e6a335b4aeadcf738d",
     "imprint_matches_root_txt": true,
@@ -55,13 +55,15 @@
     "top_subject": "CN=DigiCert Trusted Root G4,OU=www.digicert.com,O=DigiCert Inc,C=US",
     "top_in_public_roots": true,
     "redundancy": {
-      "verified_tsas": 4,
-      "verified_with_public_root": 2,
+      "verified_tsas": 6,
+      "verified_with_public_root": 4,
       "names": [
         "digicert",
         "certum",
         "apple",
-        "freetsa"
+        "freetsa",
+        "sectigo",
+        "globalsign"
       ]
     }
   },

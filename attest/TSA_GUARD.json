@@ -1,5 +1,5 @@
 {
-  "checked_at_local": "2026-11-26T16:27:39+0800",
+  "checked_at_local": "2026-11-26T21:38:19+0800",
   "tsa": "digicert",
   "level": "OK",
   "alerts": [],
@@ -15,8 +15,8 @@
         "GOOD"
       ]
     },
-    "verified_tsas": 4,
-    "verified_with_public_root": 2,
+    "verified_tsas": 6,
+    "verified_with_public_root": 4,
     "trust_mix": "公共根(certifi)：DigiCert、Certum；链完整但根未经公共审计：Apple（Apple Root CA 不在 certifi，且 Apple 官网取根返回 403，故不引入第三方镜像根凑数）、freetsa（社区自签根）；另有三家 calendar 与比特币区块锚作为独立轨"
   },
   "response_plan": "主 TSA 失效 → 用 Certum/Apple/freetsa 中验签通过且命中公共根者重新取证（tsa_multi 自动）；证书指纹变化 → 暂停使用该链，人工核对 TSA 公告与 CT 日志后再决定；吊销 → 立即停用该令牌并在包内标注",
