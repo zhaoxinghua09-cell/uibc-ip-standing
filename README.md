@@ -10,6 +10,8 @@
 
 **存证证书（可打印）**：<https://zhaoxinghua09-cell.github.io/uibc-ip-standing/certificate.html> —— A4 一页、只含公开数值，打印或"另存为 PDF"即可给客户/评审人；数值由 `make_certificate.py` 从 `PUBLICATION.json` 自动生成，不掺私有材料。
 
+**见证人指引**：<https://zhaoxinghua09-cell.github.io/uibc-ip-standing/witness.html> —— 三步给出独立回执（当前回执 0 条，这是唯一还缺的"外部签字"环节）。
+
 ---
 
 ## 一、被承诺的对象
@@ -30,7 +32,8 @@
 | 比特币区块（OpenTimestamps） | 977354 / 977367 / 977390，双源（blockstream.info + mempool.space）区块头比对一致 | 按高度查区块，核对区块哈希与 merkle root |
 | RFC3161 时间戳 | DigiCert，genTime `2026-11-26T12:50:28+08:00`（= 04:50:28Z），sha512 `196b77c1…738d` 即 `sha512(ROOT.txt)` | `sha512sum ROOT.txt` 比对令牌 imprint；或直接看 `attest/TSA.json` 的验签字段 |
 | 主张签名 | Ed25519，公钥指纹 `866dab20c9ebb067ef38db75ee3f684c275b1fcce21984355ba77decb6a0468e`，签名已再上链 | 用 `attest/CLAIMANT_PUBKEY.pem` 验 `attest/CLAIM.json` + `.sig` |
-| **Sigstore Rekor 公共透明日志** | `logIndex=4121954662`，`integratedTime=1795681387` → **2026-11-26T08:23:07Z**；入证证明 27 个 hash、`treeSize=4000053123`；条目 UUID `108e9186…50192f4c9ebb5150b3bb` | 直接查 `https://rekor.sigstore.dev/api/v1/log/entries/108e9186e8c5677a55a93624154410a2e0ac514c94f8356c6fbb1f246f1201922f4c9ebb5150b3bb`；本地副本 [`attest/REKOR_PROOF.json`](attest/REKOR_PROOF.json) |
+| **Sigstore Rekor 公共透明日志（v1）** | `logIndex=4121954662`，`integratedTime=1795681387` → **2026-11-26T08:23:07Z**；入证证明 27 个 hash、`treeSize=4000053123`；条目 UUID `108e9186…50192f4c9ebb5150b3bb` | 直接查 `https://rekor.sigstore.dev/api/v1/log/entries/108e9186e8c5677a55a93624154410a2e0ac514c94f8356c6fbb1f246f1201922f4c9ebb5150b3bb`；本地副本 [`attest/REKOR_PROOF.json`](attest/REKOR_PROOF.json) |
+| **Sigstore Rekor v2（2025 新日志）** | `logIndex=217674183`，`treeSize=217674192`，入证 18 个 hash，`rootHash=403290e1…5511e8`；签名钥为 **ECDSA P-256 副钥**（纯 Ed25519 不被 v2 的 hashedrekord 接受），公钥 [`attest/REKOR_V2_PUBKEY.pem`](attest/REKOR_V2_PUBKEY.pem) | `python scripts/verify_rekor_v2.py` 会自算 leaf→root 与验签；明细见 [`attest/REKOR_V2_VERIFY.json`](attest/REKOR_V2_VERIFY.json)。v2 无 SET，`integratedTime=0` 属正常，时间以 RFC3161 为准 |
 | 日志外锚链头 | `9abd56effd3c0d3da394a7467d666d58742aac76a313b2a97263dc0001f7d0f8`（11 行日志），**已进块 977634 / 977635 / 977645** | 核对 `attest/ROOT-LOG.txt` 内 `head_sha256=`，再按高度查区块 |
 
 三处区块的具体哈希与时间见 [`attest/ANCHORS.json`](attest/ANCHORS.json)；完整验签明细见 [`attest/TSA.json`](attest/TSA.json)。外部存在守恒检查（仓/CI/Pages/Rekor 四处每日对账）见 [`attest/REPO_WATCH.json`](attest/REPO_WATCH.json)。

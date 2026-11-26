@@ -31,6 +31,8 @@ jobs:
           grep -q "$root" certificate.html || { echo "::error::certificate.html 未含当前根值"; exit 1; }
           grep -q '2683' certificate.html || { echo "::error::certificate.html 未含文件数"; exit 1; }
           echo "certificate.html 与 index.json 根值一致"
+      - name: Rekor v2 条目自算入证与验签
+        run: python scripts/verify_rekor_v2.py
       - name: 复验页实际加载（无头浏览器跑一遍 verify.html）
         run: |
           set -u

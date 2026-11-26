@@ -1,0 +1,54 @@
+{
+  "source": "sigstore-sdk-4.6.0 (RekorV2Client)",
+  "endpoint": "https://log2025-1.rekor.sigstore.dev/api/v2/log/entries",
+  "entry_type": "hashedrekord",
+  "artifact": "attest/ROOT.txt",
+  "digest_sha256": "dda8ccf18d4f1cf1eb62a804fc1e7d1cfcb884f37283d6ead4e0260072992e72",
+  "key_details": "PKIX_ECDSA_P256_SHA_256",
+  "signer_pubkey_sha256": "76dd4f154af198cf73f3f8de20f5a92ff6c04476caaf6c784d7c66caca26ed56",
+  "log_index": 217674183,
+  "integrated_time_unix": 0,
+  "log_id": "key_id=b'\\xcf\\x11\\x99\\x15[\\xdd\\xd0Q&\\x8d\\x1f\\x16\\xac\\\\\\x0cu\\xc0\\t\\xf6\\xfbZc\\xf4\\x17\\x7f\\x8e\\x18\\xd7\\x05\\x1e?\\xa0'",
+  "entry": {
+    "logIndex": "217674183",
+    "logId": {
+      "keyId": "zxGZFVvd0FEmjR8WrFwMdcAJ9vtaY/QXf44Y1wUeP6A="
+    },
+    "kindVersion": {
+      "kind": "hashedrekord",
+      "version": "0.0.2"
+    },
+    "integratedTime": "0",
+    "inclusionProof": {
+      "logIndex": "217674183",
+      "rootHash": "QDKQ4cUcI4shfF3r/TtRWZCxp0xZrHC98KPG7NpVEeg=",
+      "treeSize": "217674192",
+      "hashes": [
+        "plGez9yUEOZLVIm3U3VW1s62ZRepO3AIWiSsdtZ6ztg=",
+        "DpTyn5WuIF9DIh19jW0+HEJnIZMfMoQWund0FxBVjkQ=",
+        "pCbM9dOZtiTbQsH3wOqD5wDBH2uWQX89zp1rT/Bngkw=",
+        "UOx7izo9tevR+ip6Zymh/BBBwGzqW0GYVm4ve4RqK8s=",
+        "HYrAErKlHj4P799qeDwnzFGgrGt9MdhHnwb29S3UJ5g=",
+        "PmBDFMM9Mb9TluAtYyIfyntZbErndk31AYxlII96eL8=",
+        "JE0vyocZ/6gkjSXvXAwYHDoPvvom9GCVpThz/0EV4bg=",
+        "lJVEqD3rjWPpKV6QGiBpcyvn4CnUJp7+Wsdcnb5+6i0=",
+        "OAnmaTguhbkusE/aXJjXaJnL+anBdAqcGdGpKKRXORI=",
+        "RJbS2FNAK/jq8O80EiXa+67eJ3ywXE07vE+8Ibw/cfI=",
+        "BO9Tago8xDd60wcqRojBMEeM2rrv4w+OcXJZTjVyvcE=",
+        "+FTVhBv+Xro1Xfpzhov7+MxJOrSq1BkZEfhQQ/gZUpY=",
+        "622Sd+6a5lCbkOTgd6pphbgz9imm/tfMDyAKewE5AYU=",
+        "5wg7q6jDYVlYpeCK6Sc+Crpbo12NQfpZTEVCtPXF7KY=",
+        "Y+sN48bYsT38N/YSPhXwCPJpnjm4y3LQBscg+U298KE=",
+        "XRL9Bqsq5Ty3c/w91h0DSUCQvZdnGoBwzxKzDgCJ6Cg=",
+        "zuvyeo6nBLfkRqBaWFAMq7VXg6REL/NZ8OodvslvLME=",
+        "dfIw5UpQDrySuhIKL/XbMVw0ZwWKPJUmYhf45oJW6bQ="
+      ],
+      "checkpoint": {
+        "envelope": "log2025-1.rekor.sigstore.dev\n217674192\nQDKQ4cUcI4shfF3r/TtRWZCxp0xZrHC98KPG7NpVEeg=\n\n— log2025-1.rekor.sigstore.dev zxGZFaQxf3gukmAqptGFoqOnkqvsdW1KETxFxD/tNnZepU8QnXs0K2uejRp+slqWukCtGsqLl7SrVwWEvrLS3jQr/g0=\n— witness.navigli.sunlight.geomys.org o+AP4gAAAABrCDFAiJMXXBsgubCkMAZZ/nDqV6OdVwDNSJhsMmRB7ccT6ytncLnOjO8vwtWUrJHwrEa5xawk58Nk92B6f9ladTFeBA==\n— witness.stagemole.eu Z/euoAAAAABrCDFA5O19waNxEOE1LzJ/hA3FPHFgF6FY2DkQFLUT1EcofzPLjii/qqQRZZwa3eXxyDLx5RnN/uE6kfqF0GIrHq7BAA==\n— krabbel.ct.ipng.ch SxDb2AAAAABrCDFA38mCKm27rxlGXBLvnQcBOP1Gkeoju1+0J/DOefHNj0lvc07C/9tXWNxgp2pHLbE5oz/cjlXUAaO1w6XmiV6GAg==\n— staging.witness.transparency.goog/ring-any-bells LhqNyQAAAABrCDFAGIUHizlvHNK32TYw2YEfTaZoaLTkdkGdI4sbTJJvcaZfBd/WyHd2oRqafBTaAkjryOwpCnwWM+opEZiV2hQRAw==\n"
+      }
+    },
+    "canonicalizedBody": "eyJhcGlWZXJzaW9uIjoiMC4wLjIiLCJraW5kIjoiaGFzaGVkcmVrb3JkIiwic3BlYyI6eyJoYXNoZWRSZWtvcmRWMDAyIjp7ImRhdGEiOnsiYWxnb3JpdGhtIjoiU0hBMl8yNTYiLCJkaWdlc3QiOiIzYWpNOFkxUEhQSHJZcWdFL0I1OUhQeTRoUE55ZzlicTFPQW1BSEtaTG5JPSJ9LCJzaWduYXR1cmUiOnsiY29udGVudCI6Ik1FVUNJQWsxcWhiRzZHY3RkZlRxeVEvbTR5aEZWMTlOalZQYVFNODdLZDJwVkNsUUFpRUErSHpycFo4YWJzejNrVjQ2MGhDbkROUU5IMU8vUjEyU2JDOVBJcjdTZHRZPSIsInZlcmlmaWVyIjp7ImtleURldGFpbHMiOiJQS0lYX0VDRFNBX1AyNTZfU0hBXzI1NiIsInB1YmxpY0tleSI6eyJyYXdCeXRlcyI6Ik1Ga3dFd1lIS29aSXpqMENBUVlJS29aSXpqMERBUWNEUWdBRVY2U1U2cXlOMWJUaE5iQ1BQRS9iQTlJaS9BN0pRdXl3SUJnd0tGRHlHOHBrT2Q1NlhQeW9QMWdIeEdRQU9WdEtRVjZ2ZkVqMzRLV2RmNVlCdEtpdUhnPT0ifX19fX19"
+  },
+  "submitted_at_utc": "2026-11-26T13:16:52.609026+00:00",
+  "note": "v2 无 SET，时间由外部 RFC3161 提供；本条与 DigiCert 令牌互证同一 ROOT.txt。签名由 ECDSA P-256 副钥对 sha256(ROOT.txt) 摘要直接签（prehashed）；公钥见 attest/REKOR_V2_PUBKEY.pem。"
+}

@@ -1,17 +1,17 @@
 {
-  "checked_at_local": "2026-11-26T20:45:10+08:00",
+  "checked_at_local": "2026-11-26T20:51:13+08:00",
   "level": "OK",
   "checks": {
     "repo": {
       "http": 200,
       "visibility": "public",
-      "pushed_at": "2026-11-26T12:43:53Z",
+      "pushed_at": "2026-11-26T12:49:48Z",
       "ok": true
     },
     "ci": {
       "http": 200,
       "workflow": "verify-commitments",
-      "head_sha": "922b76f271a0",
+      "head_sha": "cccea6eaa3b2",
       "conclusion": "success",
       "ok": true
     },

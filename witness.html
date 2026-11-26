@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>如何成为见证人 · IP 权属证据链</title>
+<style>
+body{font:15px/1.75 -apple-system,"Segoe UI",system-ui,sans-serif;max-width:860px;margin:36px auto;padding:0 16px;color:#1a1a1a}
+h1{font-size:22px} h2{font-size:16px;margin-top:30px;border-bottom:1px solid #ddd;padding-bottom:6px}
+table{border-collapse:collapse;width:100%;margin:10px 0} th,td{border:1px solid #e3e3e3;padding:6px 9px;text-align:left;font-size:13px;vertical-align:top}
+th{background:#fafafa;white-space:nowrap} code{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all}
+.note{background:#f6f7f9;border-left:3px solid #c9ced6;padding:10px 12px;font-size:13px;margin-top:16px}
+.warn{background:#fff8e1;border-left:3px solid #f0b400;padding:10px 12px;font-size:13px}
+ol li,ul li{margin:6px 0}
+</style>
+<h1>如何成为见证人（Witness）</h1>
+<div class="warn">当前状态：<b>第三方见证回执 0 条</b>。这是我们与商业存证服务之间唯一还差的"外部签字"环节，也是本页存在的原因——任何人、任何机构都可以按下面三步，独立给出回执。</div>
+
+<h2>一、你要见证的是什么</h2>
+<p>一句话：<b>某年某月某日，这 2683 个文件构成的集合已经以这个根值存在</b>。原始文件不公开，你要核的是"根值与时间的对应关系"，不是文件内容。</p>
+<table>
+<tr><th>集合 Merkle 根</th><td><code>bd08d9b237d16aebc1f3fc03c738168e398814407d20e07abda3388cec17773a</code></td></tr>
+<tr><th>文件数 / 树深</th><td><code>2683 / 12</code></td></tr>
+<tr><th>ROOT.txt sha256</th><td><code>dda8ccf18d4f1cf1eb62a804fc1e7d1cfcb884f37283d6ead4e0260072992e72</code></td></tr>
+<tr><th>比特币区块（三处）</th><td><code>977354</code> / <code>977367</code> / <code>977390</code></td></tr>
+<tr><th>RFC3161 时间戳</th><td>DigiCert，genTime <code>2026-11-26T04:50:28Z</code></td></tr>
+<tr><th>主张签名指纹</th><td><code>866dab20c9ebb067ef38db75ee3f684c275b1fcce21984355ba77decb6a0468e</code></td></tr>
+</table>
+
+<h2>二、三步拿到你自己的结论</h2>
+<ol>
+<li><b>取公开件</b>：打开索引页 <code>https://zhaoxinghua09-cell.github.io/uibc-ip-standing/</code>，或直接下载 <code>attest/ROOT.txt</code>；不想装工具就开 <code>verify.html</code>（浏览器内跑 8 项）。</li>
+<li><b>自己核两条</b>：
+  <ul>
+  <li><code>sha256(ROOT.txt)</code> 是否等于上表的 <code>dda8ccf1…</code>（一条命令即可）；</li>
+  <li>任取一个区块高度，到 blockstream.info <b>和</b> mempool.space 各查一次，两源区块哈希是否一致（两边都查，才叫独立）。</li>
+  </ul>
+</li>
+<li><b>给出回执</b>：把下面这份 JSON 填好，发到公开仓的 Issue（标题以 <code>witness:</code> 开头），或在任何可公开引用的地方发布并留下链接。回执不需要你担保文件内容，只担保"你在某个时刻亲眼核到了这些数值"。</li>
+</ol>
+
+<h2>三、回执格式（最小可用）</h2>
+<p>字段对齐仓内 <code>attest/WITNESS_RECEIPT_TEMPLATE.json</code>：</p>
+<pre style="background:#f6f8fa;padding:12px;font-size:12px;overflow:auto">{
+  "witness": "&lt;你的名字或机构&gt;",
+  "witness_independence": "&lt;说明你不受出具方雇佣/控制&gt;",
+  "checked_at_utc": "&lt;你做核对的 UTC 时间&gt;",
+  "root_txt_sha256_observed": "&lt;你算出来的值&gt;",
+  "merkle_root_observed": "&lt;你从页面抄下/接口取到的值&gt;",
+  "block_heights_checked": [977354],
+  "block_hash_observed": "&lt;你从区块浏览器看到的哈希&gt;",
+  "sources": ["&lt;你用的两个区块浏览器链接&gt;"],
+  "statement": "我核对了上述数值彼此一致，未核对原始文件内容。",
+  "public_url": "&lt;这份回执的公开链接&gt;"
+}</pre>
+<p>收到后我们会把它登记进 <code>WITNESS_LEDGER.jsonl</code>（只增、带哈希链），并在索引页显示回执数。回执一经登记，就可以被他人拿来与本仓数值对账。</p>
+
+<h2>四、见证人应满足什么</h2>
+<ul>
+<li><b>独立</b>：不隶属于出具方，也不受其控制；可以是律所、审计机构、客户、同行研究者，或个人。</li>
+<li><b>可被引用</b>：回执必须有一个公开可访问的地址（Issue、博客、公证存档均可）。</li>
+<li><b>只核数值，不背书内容</b>：不要求你判断文件内容合法或权属归谁。</li>
+<li><b>不需要交出任何私密信息</b>：核对全程只用公开件；不要把私钥、内部路径、客户资料带进回执。</li>
+</ul>
+
+<div class="note">
+边界与诚实说明：<br>
+· 现在回执数为 0，意味着"外部有人替你见证"这件事<b>尚未发生</b>；本页只是把它变得可执行。<br>
+· 见证不改变法律性质：它仍是当事人自证 + 公开对账，不构成公证、鉴定或法律意见。<br>
+· 我们不承诺回执审核时限，也不承诺一定登记——明显造假的回执会被拒绝并在台账里写明理由。<br>
+· 台账防改不防瞒、不防分叉：分歧只能靠链头公开对账发现，这一点不因见证而改变。
+</div>
+<p style="font-size:12px;color:#666;margin-top:22px">相关：<a href="./">索引页</a>　<a href="verify.html">浏览器复验</a>　<a href="certificate.html">存证证书</a>　<a href="https://github.com/zhaoxinghua09-cell/uibc-ip-standing">公开仓</a></p>
+</html>

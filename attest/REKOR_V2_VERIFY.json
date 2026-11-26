@@ -1,0 +1,13 @@
+{
+  "checked_at_local": "2026-11-26T21:17:17+0800",
+  "log_index": 217674183,
+  "tree_size": 217674192,
+  "proof_hashes": 18,
+  "leaf_hash_hex": "df981cf710909f3676c34a7bfa0b8d45a36e699dc845e0b65a17449e99ae9014",
+  "root_hash_hex": "403290e1c51c238b217c5debfd3b515990b1a74c59ac70bdf0a3c6ecda5511e8",
+  "computed_root_hex": "403290e1c51c238b217c5debfd3b515990b1a74c59ac70bdf0a3c6ecda5511e8",
+  "merkle_root_recomputed": true,
+  "digest_matches_roottxt": true,
+  "signature_verifies_with_pubkey": true,
+  "note": "v2 无 SET；integratedTime=0 属正常，时间以 DigiCert RFC3161 为准。"
+}
