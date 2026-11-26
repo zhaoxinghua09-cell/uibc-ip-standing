@@ -1,19 +1,19 @@
 {
-  "checked_at_local": "2026-11-26T20:39:26+08:00",
-  "level": "ALERT",
+  "checked_at_local": "2026-11-26T20:45:10+08:00",
+  "level": "OK",
   "checks": {
     "repo": {
       "http": 200,
       "visibility": "public",
-      "pushed_at": "2026-11-26T12:38:07Z",
+      "pushed_at": "2026-11-26T12:43:53Z",
       "ok": true
     },
     "ci": {
       "http": 200,
       "workflow": "verify-commitments",
-      "head_sha": "00d325cdc7ea",
-      "conclusion": "failure",
-      "ok": false
+      "head_sha": "922b76f271a0",
+      "conclusion": "success",
+      "ok": true
     },
     "pages": {
       "http": 200,

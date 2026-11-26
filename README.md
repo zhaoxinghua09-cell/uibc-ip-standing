@@ -8,6 +8,8 @@
 
 **零安装复验页**：<https://zhaoxinghua09-cell.github.io/uibc-ip-standing/verify.html> —— 当场跑 8 项检查（索引根值一致、`ROOT.txt` sha256、`ROOT.txt` 内 root、主张签名 Ed25519 验签、规范字节 sha256、公钥指纹、Rekor 条目在册、RFC3161 字段自洽），全部在你本机浏览器完成，不上传任何数据。CI 会用无头浏览器实跑这一页，免得它是"看起来能跑"的摆设。
 
+**存证证书（可打印）**：<https://zhaoxinghua09-cell.github.io/uibc-ip-standing/certificate.html> —— A4 一页、只含公开数值，打印或"另存为 PDF"即可给客户/评审人；数值由 `make_certificate.py` 从 `PUBLICATION.json` 自动生成，不掺私有材料。
+
 ---
 
 ## 一、被承诺的对象

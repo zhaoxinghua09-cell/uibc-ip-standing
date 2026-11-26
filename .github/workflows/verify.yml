@@ -24,6 +24,13 @@ jobs:
         run: python scripts/selfcheck.py
       - name: 浏览器复验页算法一致性（规范字节/指纹）
         run: node scripts/canon_check.js attest/CLAIM.json attest/CLAIM.json.sig attest/CLAIMANT_PUBKEY.pem
+      - name: 存证证书与索引数值一致
+        run: |
+          set -e
+          root=$(python -c "import json;print(json.load(open('index.json'))['commitments']['merkle_root'])")
+          grep -q "$root" certificate.html || { echo "::error::certificate.html 未含当前根值"; exit 1; }
+          grep -q '2683' certificate.html || { echo "::error::certificate.html 未含文件数"; exit 1; }
+          echo "certificate.html 与 index.json 根值一致"
       - name: 复验页实际加载（无头浏览器跑一遍 verify.html）
         run: |
           set -u

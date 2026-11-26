@@ -172,7 +172,13 @@ def main():
         r = subprocess.run([sys.executable, str(gen)], cwd=str(src), capture_output=True, text=True)
         if r.returncode != 0:
             sys.exit(f"FATAL: public_index.py 生成失败：{r.stderr[-500:]}")
-    for n in ("index.html", "index.json"):
+    # 证书页：同样由证据链侧生成（依赖 PUBLICATION.json）
+    certgen = src / "make_certificate.py"
+    if certgen.exists():
+        r = subprocess.run([sys.executable, str(certgen)], cwd=str(src), capture_output=True, text=True)
+        if r.returncode != 0:
+            sys.exit(f"FATAL: make_certificate.py 生成失败：{r.stderr[-500:]}")
+    for n in ("index.html", "index.json", "certificate.html"):
         p = out / "public_index" / n
         if p.exists():
             shutil.copy2(p, REPO / n)
