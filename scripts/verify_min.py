@@ -121,23 +121,30 @@ def check_rekor(repo, offline):
         add("Rekor v1 在线在册", False, f"{type(e).__name__}: {str(e)[:80]}")
 
 
+def run_checks(repo, offline=False):
+    """跑全部检查并返回结果列表（供 selftest_negative.py 之类的程序化调用）。"""
+    del RESULTS[:]
+    try:
+        check_core(repo)
+        check_continuity(repo)
+        check_signature(repo)
+        check_rekor(repo, offline)
+    except Exception as e:
+        add("脚本异常", False, f"{type(e).__name__}: {str(e)[:100]}")
+    return list(RESULTS)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--path", default=None)
     ap.add_argument("--offline", action="store_true")
     a = ap.parse_args()
     repo = pathlib.Path(a.path).resolve() if a.path else pathlib.Path(__file__).resolve().parent.parent
-    try:
-        idx = check_core(repo)
-        check_continuity(repo)
-        check_signature(repo)
-        check_rekor(repo, a.offline)
-    except Exception as e:
-        add("脚本异常", False, f"{type(e).__name__}: {str(e)[:100]}")
-    fails = [r for r in RESULTS if r["result"] == "FAIL"]
-    for r in RESULTS:
+    res = run_checks(repo, a.offline)
+    fails = [r for r in res if r["result"] == "FAIL"]
+    for r in res:
         print(f"{r['result']:<4} {r['check']}  {r['detail']}")
-    print(f"结论：{'FAIL' if fails else 'PASS'}（{len(RESULTS) - len(fails)} 项通过/警告，{len(fails)} 项失败）")
+    print(f"结论：{'FAIL' if fails else 'PASS'}（{len(res) - len(fails)} 项通过/警告，{len(fails)} 项失败）")
     return 1 if fails else 0
 
 

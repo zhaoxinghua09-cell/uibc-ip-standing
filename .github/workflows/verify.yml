@@ -77,3 +77,8 @@ jobs:
         run: |
           set -u
           python3 scripts/verify_min.py --offline
+
+      - name: fail-closed 自测（篡改必被抓住）
+        run: |
+          set -u
+          python3 scripts/selftest_negative.py

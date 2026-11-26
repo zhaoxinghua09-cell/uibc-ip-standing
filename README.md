@@ -16,6 +16,10 @@
 
 **一条命令复验（任何系统，零依赖）**：`git clone` 后执行 `./verify.sh`（或 `python3 scripts/verify_min.py`），只需 Python 3 标准库，7 项检查：`ROOT.txt` sha256、文件内 root、文件数、连续性哈希链、连续性未停更、主张签名 Ed25519（有 `cryptography` 则实签，无则 WARN 而非 PASS）、Rekor v1 在线在册（`--offline` 可跳过）。适合直接塞进别人的 CI。
 
+**验证器不会"永远 PASS"**：`python3 scripts/selftest_negative.py` 在临时副本上制造 5 种篡改（改索引根值、改 `ROOT.txt`、改连续性哈希、把台账整体改旧、改 `CLAIM.json` 内容），逐项断言必须被抓——当前 5/5 `CAUGHT`。CI 每次推送都跑这个自测。
+
+**继任与离场预案**：[`SUCCESSION.md`](SUCCESSION.md) —— 证据本身不依赖我（区块、TSA 令牌、公钥都在公共体系里）；真正会丢的是"以同一身份续签"的能力，以及"续跑心跳"的人。交叉签名继任程序已写明，尚未启用，单点风险不掩饰。
+
 ---
 
 ## 一、被承诺的对象
