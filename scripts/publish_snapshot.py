@@ -18,6 +18,7 @@ import datetime
 import hashlib
 import json
 import pathlib
+import re
 import shutil
 import subprocess
 import sys
@@ -201,17 +202,19 @@ def main():
             shutil.copy2(p, REPO / n)
 
     # 3b) 报告：复制并脱敏本机路径/主机名（报告不是签名产物，可改）
+    # 注意：这里不得出现任何具体用户名或本机绝对路径（否则脱敏脚本本身就成了泄露源）。
     report = src / "IP外锚与存证_竞品与最佳实践矩阵_20261126.md"
     if report.exists():
         text = report.read_text(encoding="utf-8")
-        for k, v in (
-            (str(src), "<工作目录>"),
-            ("C:\\Users\\SZYL\\Doubao\\chats\\2026-11-23\\new-chat-14\\ip", "<工作目录>"),
-            ("C:\\Users\\SZYL", "<用户目录>"),
-            ("DESKTOP-IGJBTUB", "<主机A>"),
-            ("赵兴华的台式机", "<主机B>"),
+        for pat, rep in (
+            (r"[A-Za-z]:\\Users\\[^\\\s]+\\[^\s`|]*", "<本机路径>"),
+            (r"[A-Za-z]:\\Workbuddy[^\s`|]*", "<本机路径>"),
+            (r"/home/[^/\s]+/[^\s`|]*", "<本机路径>"),
         ):
+            text = re.sub(pat, rep, text)
+        for k, v in (("<主机A>", "<主机>"), ("<主机B>", "<主机>")):
             text = text.replace(k, v)
+        text = re.sub(r"DESKTOP-[A-Z0-9]{3,}", "<主机>", text)
         (REPO / "docs" / "对标与实测报告_20261126.md").write_text(text, encoding="utf-8")
 
     if args.dry_run:
