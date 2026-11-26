@@ -1,17 +1,17 @@
 {
-  "checked_at_local": "2026-11-26T20:51:13+08:00",
+  "checked_at_local": "2026-11-26T21:23:28+08:00",
   "level": "OK",
   "checks": {
     "repo": {
       "http": 200,
       "visibility": "public",
-      "pushed_at": "2026-11-26T12:49:48Z",
+      "pushed_at": "2026-11-26T13:18:54Z",
       "ok": true
     },
     "ci": {
       "http": 200,
       "workflow": "verify-commitments",
-      "head_sha": "cccea6eaa3b2",
+      "head_sha": "7b8b535d6a05",
       "conclusion": "success",
       "ok": true
     },
@@ -28,7 +28,15 @@
       "integratedTime": 1795681387,
       "inclusionProof_hashes": 30,
       "ok": true
+    },
+    "rekor_v2": {
+      "http": 200,
+      "logIndex": 217674183,
+      "treeSize_when_logged": 217674192,
+      "treeSize_now": 217681530,
+      "checkpoint_origin": "log2025-1.rekor.sigstore.dev",
+      "ok": true
     }
   },
-  "boundary": "本检查只证明'外部四处仍在且数值一致'，不构成第三方托管或见证；一律以本地证据链为准，外部不一致按 ALERT 处理。"
+  "boundary": "本检查只证明'外部五处仍在且数值一致'，不构成第三方托管或见证；一律以本地证据链为准，外部不一致按 ALERT 处理。"
 }

@@ -33,6 +33,12 @@ jobs:
           echo "certificate.html 与 index.json 根值一致"
       - name: Rekor v2 条目自算入证与验签
         run: python scripts/verify_rekor_v2.py
+      - name: Rekor v2 checkpoint 联签数（外部见证）
+        run: |
+          set -e
+          n=$(grep -c '^— ' attest/REKOR_V2_CHECKPOINT.txt || true)
+          echo "checkpoint 联签行数=$n"
+          [ "$n" -ge 2 ] || { echo "::error::checkpoint 联签不足 2 行"; exit 1; }
       - name: 复验页实际加载（无头浏览器跑一遍 verify.html）
         run: |
           set -u
