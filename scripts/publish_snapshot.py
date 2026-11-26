@@ -36,6 +36,7 @@ ATTEST_FILES = [
     "IP_VERIFY.json", "HEALTH.md", "RECHECK_SCHEDULE.json",
     "WITNESS_KIT.md", "WITNESS_REQUEST.json",
     "WITNESS_RECEIPT_TEMPLATE.json", "WITNESS_LEDGER_SCHEMA.json",
+    "REKOR_PROOF.json", "REPO_WATCH.json",
 ]
 
 
@@ -175,6 +176,20 @@ def main():
         p = out / "public_index" / n
         if p.exists():
             shutil.copy2(p, REPO / n)
+
+    # 3b) 报告：复制并脱敏本机路径/主机名（报告不是签名产物，可改）
+    report = src / "IP外锚与存证_竞品与最佳实践矩阵_20261126.md"
+    if report.exists():
+        text = report.read_text(encoding="utf-8")
+        for k, v in (
+            (str(src), "<工作目录>"),
+            ("C:\\Users\\SZYL\\Doubao\\chats\\2026-11-23\\new-chat-14\\ip", "<工作目录>"),
+            ("C:\\Users\\SZYL", "<用户目录>"),
+            ("DESKTOP-IGJBTUB", "<主机A>"),
+            ("赵兴华的台式机", "<主机B>"),
+        ):
+            text = text.replace(k, v)
+        (REPO / "docs" / "对标与实测报告_20261126.md").write_text(text, encoding="utf-8")
 
     if args.dry_run:
         print("DRY-RUN：以下数值将被写入（不落盘）")

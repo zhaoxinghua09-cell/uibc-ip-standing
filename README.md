@@ -19,16 +19,17 @@
 
 根由逐文件 sha256 两两上推得出，`ROOT.txt` 是其文本载体。**原始文件本身不在此仓库**，仅凭这里的数据无法还原文件内容，也无法判断内容是什么——这正是设计意图：证明"存在与时刻"，不泄露内容。
 
-## 二、四个独立时间锚
+## 二、五个独立锚（含一个公共透明日志条目）
 
 | 锚 | 明细 | 独立复核方式 |
 |---|---|---|
 | 比特币区块（OpenTimestamps） | 977354 / 977367 / 977390，双源（blockstream.info + mempool.space）区块头比对一致 | 按高度查区块，核对区块哈希与 merkle root |
 | RFC3161 时间戳 | DigiCert，genTime `2026-11-26T12:50:28+08:00`（= 04:50:28Z），sha512 `196b77c1…738d` 即 `sha512(ROOT.txt)` | `sha512sum ROOT.txt` 比对令牌 imprint；或直接看 `attest/TSA.json` 的验签字段 |
 | 主张签名 | Ed25519，公钥指纹 `866dab20c9ebb067ef38db75ee3f684c275b1fcce21984355ba77decb6a0468e`，签名已再上链 | 用 `attest/CLAIMANT_PUBKEY.pem` 验 `attest/CLAIM.json` + `.sig` |
+| **Sigstore Rekor 公共透明日志** | `logIndex=4121954662`，`integratedTime=1795681387` → **2026-11-26T08:23:07Z**；入证证明 27 个 hash、`treeSize=4000053123`；条目 UUID `108e9186…50192f4c9ebb5150b3bb` | 直接查 `https://rekor.sigstore.dev/api/v1/log/entries/108e9186e8c5677a55a93624154410a2e0ac514c94f8356c6fbb1f246f1201922f4c9ebb5150b3bb`；本地副本 [`attest/REKOR_PROOF.json`](attest/REKOR_PROOF.json) |
 | 日志外锚链头 | `9abd56effd3c0d3da394a7467d666d58742aac76a313b2a97263dc0001f7d0f8`（11 行日志），OTS 已提交待进块 | 核对 `attest/ROOT-LOG.txt` 内 `head_sha256=` |
 
-三处区块的具体哈希与时间见 [`attest/ANCHORS.json`](attest/ANCHORS.json)；完整验签明细见 [`attest/TSA.json`](attest/TSA.json)。
+三处区块的具体哈希与时间见 [`attest/ANCHORS.json`](attest/ANCHORS.json)；完整验签明细见 [`attest/TSA.json`](attest/TSA.json)。外部存在守恒检查（仓/CI/Pages/Rekor 四处每日对账）见 [`attest/REPO_WATCH.json`](attest/REPO_WATCH.json)。
 
 ## 三、自己核（不需要我们的工具）
 

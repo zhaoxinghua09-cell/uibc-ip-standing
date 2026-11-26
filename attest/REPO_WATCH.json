@@ -1,0 +1,34 @@
+{
+  "checked_at_local": "2026-11-26T16:24:16+08:00",
+  "level": "OK",
+  "checks": {
+    "repo": {
+      "http": 200,
+      "visibility": "public",
+      "pushed_at": "2026-11-26T07:44:16Z",
+      "ok": true
+    },
+    "ci": {
+      "http": 200,
+      "workflow": "verify-commitments",
+      "head_sha": "04e447386996",
+      "conclusion": "success",
+      "ok": true
+    },
+    "pages": {
+      "http": 200,
+      "index_http": 200,
+      "page_root_prefix": "bd08d9b237d16aeb",
+      "local_root_prefix": "bd08d9b237d16aeb",
+      "ok": true
+    },
+    "rekor": {
+      "http": 200,
+      "logIndex": 4121954662,
+      "integratedTime": 1795681387,
+      "inclusionProof_hashes": 28,
+      "ok": true
+    }
+  },
+  "boundary": "本检查只证明'外部四处仍在且数值一致'，不构成第三方托管或见证；一律以本地证据链为准，外部不一致按 ALERT 处理。"
+}
