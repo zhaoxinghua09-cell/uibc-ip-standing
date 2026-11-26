@@ -1,5 +1,5 @@
 {
-  "checked_at_local": "2026-11-26T14:29:04+0800",
+  "checked_at_local": "2026-11-26T16:27:36+0800",
   "log_id": "uibc-ip-index-ledger",
   "tree_size": 1,
   "root_hash": "02e24881a175a6e58e29c4199c67b7e9238f49e341a6d8dfc98bd9c48dec8942",
@@ -9,15 +9,18 @@
   "note_file": "STH-02e24881a175.txt",
   "note_sha256": "7ce39abcccb011e229c0a4997be56e467fcc539bb1ee0be033850b8234f4f031",
   "self_verify": true,
-  "anchor_status": "PENDING",
-  "anchor_heights": [],
+  "anchor_status": "CONFIRMED",
+  "anchor_heights": [
+    977638,
+    977645
+  ],
   "note_format_reference": "对齐 Sigstore Rekor /api/v1/log 返回的 signedTreeHead（Go note 格式）；Rekor 用 ECDSA，本件用 Ed25519",
   "boundary": "树只覆盖已写入台账的条目；无公开托管方，'公布'仅限本地与包内。抗分叉依赖：两方拿到的 tree_size+root 不一致即暴露。",
   "comparison_with_rekor": {
     "rekor_snapshot": {
       "tree_size": 3997996227,
       "url": "https://rekor.sigstore.dev/api/v1/log",
-      "fetched_at_local": "2026-11-26T14:29:04+0800",
+      "fetched_at_local": "2026-11-26T16:27:36+0800",
       "note": "本轮实测抓取；Rekor 已累计约 40 亿条目"
     },
     "same": [

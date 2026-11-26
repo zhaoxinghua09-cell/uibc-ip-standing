@@ -2,4 +2,4 @@ uibc-claim-signature-commitment
 claim_id=UIBC-IP-20261126
 signature_sha256=8012c49412cc04a6217bc78d46413476a80c6bbd501f80a9aa58a01134d8383e
 pubkey_fingerprint_sha256=866dab20c9ebb067ef38db75ee3f684c275b1fcce21984355ba77decb6a0468e
-committed_at_local=2026-11-26T14:28:42+0800
+committed_at_local=2026-11-26T16:26:39+0800

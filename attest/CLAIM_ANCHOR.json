@@ -1,7 +1,11 @@
 {
-  "checked_at_local": "2026-11-26T14:28:47+0800",
-  "status": "PENDING",
-  "heights": [],
+  "checked_at_local": "2026-11-26T16:27:02+0800",
+  "status": "CONFIRMED",
+  "heights": [
+    977636,
+    977638,
+    977645
+  ],
   "pending_calendars": [
     "https://alice.btc.calendar.opentimestamps.org",
     "https://bob.btc.calendar.opentimestamps.org",

@@ -79,7 +79,7 @@
     "lines": 11,
     "head_sha256": "9abd56effd3c0d3da394a7467d666d58742aac76a313b2a97263dc0001f7d0f8",
     "log_file_sha256": "8620d2192a888835203e40aa29e87faeac43c29f41b3313528b6d164a7411462",
-    "anchor_status": "PENDING"
+    "anchor_status": "CONFIRMED"
   },
   "index_ledger": {
     "entries": 1,
@@ -91,7 +91,7 @@
     "root_hash": "02e24881a175a6e58e29c4199c67b7e9238f49e341a6d8dfc98bd9c48dec8942",
     "root_b64": "AuJIgaF1puWOKcQZnGe36SOPSeNBptjfyYvZxI3siUI=",
     "signature_scheme": "Ed25519 (note 格式，签名覆盖空行前文本)",
-    "anchor_status": "PENDING"
+    "anchor_status": "CONFIRMED"
   },
   "tsa_guard": {
     "level": "OK",

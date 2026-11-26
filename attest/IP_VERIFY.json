@@ -119,21 +119,23 @@
       }
     }
   },
-  "anchor_warnings": [
-    "日志外锚尚未进块（PENDING）"
-  ],
+  "anchor_warnings": [],
   "audit_log": {
     "chain_ok": true,
     "lines": 11,
     "chain_since_line": 6,
     "last_line_sha256": "9abd56effd3c0d3da394a7467d666d58742aac76a313b2a97263dc0001f7d0f8",
     "external_anchor": {
-      "status": "PENDING",
+      "status": "CONFIRMED",
       "anchored_lines": 11,
       "anchored_head": "9abd56effd3c0d3da394a7467d666d58742aac76a313b2a97263dc0001f7d0f8",
       "head_matches_current": true,
-      "heights": [],
-      "next_expectation": "已提交至 calendar，通常 0.5–6 小时进块；下次巡检会自动 upgrade 并用双源确认",
+      "heights": [
+        977634,
+        977635,
+        977645
+      ],
+      "next_expectation": "已进块，无需等待",
       "proof_file": "out\\ROOT-LOG.txt.ots"
     },
     "problems": []

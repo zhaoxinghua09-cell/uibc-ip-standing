@@ -6,6 +6,6 @@
   "key_reused": true,
   "claim_reused": true,
   "claim_id": "UIBC-IP-20261126",
-  "checked_at_local": "2026-11-26T14:28:42+0800",
+  "checked_at_local": "2026-11-26T16:26:39+0800",
   "note": "claim_reused=true 表示本次未新签（绑定对象未变），沿用既有签名与既有上链承诺"
 }
