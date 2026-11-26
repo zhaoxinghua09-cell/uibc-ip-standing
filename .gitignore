@@ -1,0 +1,22 @@
+# 绝不入仓
+.vault/
+*.zip
+*.7z
+*.exe
+
+# 证据本体与路径清单（见 PUBLISH_SCOPE.md）
+subject/
+evidence/
+files_claim.json
+MANIFEST.json
+SHA256SUMS.txt
+
+# 内部质量材料
+EXTERNAL_AI_REVIEW*.json
+logs/
+
+# 临时
+*.tmp
+*.bak
+Thumbs.db
+.DS_Store

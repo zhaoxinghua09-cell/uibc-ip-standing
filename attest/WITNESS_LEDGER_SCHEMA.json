@@ -1,0 +1,16 @@
+{
+  "file": "out/WITNESS_LEDGER.jsonl",
+  "append_only": true,
+  "entry_fields": [
+    "seq",
+    "received_at_local",
+    "request_id",
+    "witness_name",
+    "witness_org",
+    "conclusion",
+    "receipt_sha256",
+    "prev_entry_hash",
+    "entry_hash"
+  ],
+  "rule": "只追加；每条覆盖一份回执的 sha256；conclusion 为 MATCH 才计入见证数；MISMATCH 必须保留在台账里，不得删除。"
+}

@@ -1,0 +1,15 @@
+{
+  "checked_at_local": "2026-11-26T14:28:47+0800",
+  "status": "PENDING",
+  "heights": [],
+  "pending_calendars": [
+    "https://alice.btc.calendar.opentimestamps.org",
+    "https://bob.btc.calendar.opentimestamps.org",
+    "https://finney.calendar.eternitywall.com"
+  ],
+  "stamp_note": "复用既有承诺",
+  "signature_sha256": "8012c49412cc04a6217bc78d46413476a80c6bbd501f80a9aa58a01134d8383e",
+  "signature_file_sha256": "677322ee52ded3677ecbfeb07959723247375e01cca1cc466e49f890a6c85f16",
+  "commitment_file": "CLAIM-SIG-8012c49412cc.txt",
+  "proof_file": "CLAIM-SIG-8012c49412cc.txt.ots"
+}

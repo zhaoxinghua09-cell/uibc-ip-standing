@@ -1,0 +1,24 @@
+name: verify-commitments
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  selfcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install cryptography
+      - name: 敏感信息预检（私钥/令牌/路径）
+        run: |
+          set -e
+          if grep -rInE 'BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9]{20,}' \
+             --exclude-dir=.git --exclude=scripts/preflight_scan.ps1 . ; then
+            echo "::error::发现疑似私钥或令牌"; exit 1
+          fi
+      - name: 承诺件自检（哈希 + 签名 + 跨文件一致）
+        run: python scripts/selfcheck.py

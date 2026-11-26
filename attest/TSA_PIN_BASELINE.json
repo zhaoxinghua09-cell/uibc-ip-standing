@@ -1,0 +1,10 @@
+{
+  "created_at_local": "2026-11-26T13:28:47+0800",
+  "tsa": "digicert",
+  "cert_sha256": [
+    "e4ede37c61b6b42c6fc24778bbd803c76f2ae8da9d2b73e2917da2672ccafa3c",
+    "ca0b1554ecd901ea19dcad8749e9f2648c8d6dfcea1add9d2c2109415bb82ccd",
+    "33846b545a49c9be4903c60e01713c1bd4e4ef31ea65cd95d69e62794f30b941"
+  ],
+  "note": "基线在今日建立；此后任何签者/中间/根证书指纹变化都必须人工确认"
+}

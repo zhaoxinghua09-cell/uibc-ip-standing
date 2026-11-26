@@ -1,0 +1,59 @@
+{
+  "claim_id": "UIBC-IP-20261126",
+  "claimant": {
+    "name": "Steven Zhao (赵兴华)",
+    "role": "IP 权属主张人 / 项目自持密钥持有人",
+    "external_identities": [
+      "GitHub: zhaoxinghua09-cell（theory 身份）",
+      "当前会话执行主机：DESKTOP-IGJBTUB"
+    ]
+  },
+  "claimant_key_fingerprint": "866dab20c9ebb067ef38db75ee3f684c275b1fcce21984355ba77decb6a0468e",
+  "statement_zh": "本人（上述主张人）对本文件集合主张权属与著作权。集合内容以 subject.merkle_root 所指为准；其存在时间以下列外锚为准：比特币区块（不可回溯改写）与 RFC3161 时间戳（公共根 CA 签发）。本主张不改变任何第三方已合法取得的权利。",
+  "statement_en": "I, the claimant above, claim authorship/ownership of this file set. The set is identified by subject.merkle_root; its existence in time is evidenced by the Bitcoin blocks and the RFC3161 timestamp listed under anchors. This claim does not extinguish any third party's lawful rights.",
+  "subject": {
+    "files": 2683,
+    "merkle_root": "bd08d9b237d16aebc1f3fc03c738168e398814407d20e07abda3388cec17773a",
+    "depth": 12,
+    "root_txt_sha256": "dda8ccf18d4f1cf1eb62a804fc1e7d1cfcb884f37283d6ead4e0260072992e72"
+  },
+  "anchors": {
+    "bitcoin_blocks": [
+      {
+        "height": 977354,
+        "block_hash": "00000000000000000000511422470fe101bd955fff49df9144ca8dafd92df1fa",
+        "gen_time_utc": "2026-11-24T10:00:51Z"
+      },
+      {
+        "height": 977367,
+        "block_hash": "0000000000000000000149815f74ebe24750314def0b78ba173ac3614539fb30",
+        "gen_time_utc": "2026-11-24T13:08:34Z"
+      },
+      {
+        "height": 977390,
+        "block_hash": "000000000000000000004f93e9b31059b03d08dcd502031eceeb5e8f3d53c0dd",
+        "gen_time_utc": "2026-11-24T16:51:33Z"
+      }
+    ],
+    "rfc3161": {
+      "tsa": "digicert",
+      "gen_time_utc": "2026-11-26T04:50:28+00:00",
+      "imprint_matches": true
+    }
+  },
+  "issued_at_local": "2026-11-26T13:49:17+0800",
+  "non_repudiation_scope": {
+    "what_it_proves": "某私钥持有者在签名时刻对上述摘要与主张文本作出签署，且该签名时刻亦被 OTS 上链锚定。",
+    "condition": "不可否认性以私钥未被泄露为前提（RFC 8032 Ed25519 的固有边界）：私钥一旦泄露或被托管方持有，签名者可以主张他人代签，抗抵赖即失效。",
+    "revocation": "密钥泄露、设备失窃或持有人变更时，须发布 REVOKED 声明（撤销指纹 + 时间 + 新公钥），并重新签署 CLAIM 后再次上链；撤销声明本身也须可被追溯。",
+    "identity_mapping": "姓名↔真实身份的映射不在密码学内。外部凭据（GitHub 账号、公司注册、公证）只是可追责触点，其可信度等于该凭据自身的可验证性，不能当作身份证明。"
+  },
+  "key_lifecycle": {
+    "algorithm": "Ed25519 (RFC 8032)",
+    "private_key_location": "ip/.vault/claimant_ed25519.pem（本机、不进包、已收紧 ACL）",
+    "rotation_policy": "泄露/换机/年度 三者任一触发轮换；轮换后旧公钥标记 REVOKED 并保留历史"
+  },
+  "signature_scheme": "Ed25519 over sha-256-free canonical JSON (RFC 8032); detached, base64",
+  "verify_hint": "python -c \"import json;from cryptography.hazmat.primitives import serialization;from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey;import base64;b=json.dumps(json.load(open('CLAIM.json',encoding='utf-8')),ensure_ascii=False,sort_keys=True,separators=(',',':')).encode();pk=serialization.load_pem_public_key(open('CLAIMANT_PUBKEY.pem','rb').read());pk.verify(base64.b64decode(open('CLAIM.json.sig').read()),b);print('signature OK')\"",
+  "boundary": "签名证明持私钥者做了该主张，不证明姓名与真实身份的映射；后者需外部凭据（账号/注册/公证）交叉印证。本机制不是 DID/W3C VC，是自持密钥 + 可验签名 + 上链时间。"
+}

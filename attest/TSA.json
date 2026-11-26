@@ -1,0 +1,169 @@
+{
+  "tsa_url": "http://timestamp.digicert.com",
+  "tsa_name": "digicert",
+  "queried_at_local": "2026-11-26T12:50:30+0800",
+  "target_file": "ip/out/ROOT.txt",
+  "hash_algorithm": "sha512",
+  "imprint_matches": true,
+  "root_sha256": "dda8ccf18d4f1cf1eb62a804fc1e7d1cfcb884f37283d6ead4e0260072992e72",
+  "root_sha512": "196b77c1ff8a93e3fd3fc17603eab9e4e43e0ee442b891e96f850dfb08535659d870c9bc8b1bc1e84362340a95c09f94b724b6b209eb19e6a335b4aeadcf738d",
+  "gen_time_utc": "2026-11-26T04:50:28+00:00",
+  "pki_status": 0,
+  "status_meaning": "granted",
+  "token_present": true,
+  "token_reused": true,
+  "chain_verified": true,
+  "signature_verified": true,
+  "message_digest_verified": true,
+  "signer_valid_at_gen_time": true,
+  "signer_subject": "CN=DigiCert SHA512 RSA4096 Timestamp Responder 2026 1,O=DigiCert\\, Inc.,C=US",
+  "chain_detail": {
+    "chain_length": 3,
+    "top_subject": "CN=DigiCert Trusted Root G4,OU=www.digicert.com,O=DigiCert Inc,C=US",
+    "top_self_signed": true,
+    "top_in_public_roots": true
+  },
+  "verification_method": "自研 tsa_verify.py：messageDigest 比对 + PKCS#1/ECDSA 实体验签 + 证书链公钥逐级上溯至自签根 + certifi 公共根比对 + 签发时刻有效期；无 OpenSSL 依赖",
+  "boundary": "不验吊销前历史（仅留 genTime 后最近的 CRL 快照）；freetsa 根为社区自签；令牌时间与 OpenTimestamps 进块时间独立",
+  "redundancy": [
+    {
+      "tsa": "digicert",
+      "verified": true,
+      "gen_time_utc": "2026-11-26T04:50:28+00:00",
+      "top_in_public_roots": true,
+      "top_subject": "CN=DigiCert Trusted Root G4,OU=www.digicert.com,O=DigiCert Inc,C=US"
+    },
+    {
+      "tsa": "certum",
+      "verified": true,
+      "gen_time_utc": "2026-11-26T04:50:29+00:00",
+      "top_in_public_roots": true,
+      "top_subject": "CN=Certum Trusted Network CA 2,OU=Certum Certification Authority,O=Unizeto Technologies S.A.,C=PL"
+    },
+    {
+      "tsa": "apple",
+      "verified": true,
+      "gen_time_utc": "2026-11-26T04:50:29+00:00",
+      "top_in_public_roots": false,
+      "top_subject": "CN=Apple Root CA,OU=Apple Certification Authority,O=Apple Inc.,C=US"
+    },
+    {
+      "tsa": "freetsa",
+      "verified": true,
+      "gen_time_utc": "2026-11-26T04:50:30+00:00",
+      "top_in_public_roots": false,
+      "top_subject": "C=DE,ST=Bayern,L=Wuerzburg,1.2.840.113549.1.9.1=busilezas@gmail.com,CN=www.freetsa.org,OU=Root CA,O=Free TSA"
+    }
+  ],
+  "probes_file": "out/TSA_PROBES.json",
+  "ltv": {
+    "tsa": "digicert",
+    "collected_at_local": "2026-11-26T13:09:04+0800",
+    "certs": [
+      {
+        "file": "out\\tsa_ltv\\digicert\\chain_01.pem",
+        "subject": "CN=DigiCert SHA512 RSA4096 Timestamp Responder 2026 1,O=DigiCert\\, Inc.,C=US",
+        "issuer": "CN=DigiCert Trusted G4 TimeStamping RSA4096 SHA256 2025 CA1,O=DigiCert\\, Inc.,C=US",
+        "serial": 16491414665796726099745990112217462320,
+        "pem_sha256": "0d5acb370b86a5bb549aaa78539aa690c18d1ea1f1e3802789240691d1dcc63d",
+        "not_before": "2026-08-05 00:00:00+00:00",
+        "not_after": "2037-11-04 23:59:59+00:00",
+        "crl_urls": [
+          "http://crl3.digicert.com/DigiCertTrustedG4TimeStampingRSA4096SHA2562025CA1.crl"
+        ],
+        "ocsp_urls": [
+          "http://ocsp.digicert.com"
+        ]
+      },
+      {
+        "file": "out\\tsa_ltv\\digicert\\chain_02.pem",
+        "subject": "CN=DigiCert Trusted G4 TimeStamping RSA4096 SHA256 2025 CA1,O=DigiCert\\, Inc.,C=US",
+        "issuer": "CN=DigiCert Trusted Root G4,OU=www.digicert.com,O=DigiCert Inc,C=US",
+        "serial": 18316726489210163671024321415498844550,
+        "pem_sha256": "5e13de210e735b614d6ec948361aadef9dd6c0ef575382a75f57fd59e183b90e",
+        "not_before": "2025-05-07 00:00:00+00:00",
+        "not_after": "2038-01-14 23:59:59+00:00",
+        "crl_urls": [
+          "http://crl3.digicert.com/DigiCertTrustedRootG4.crl"
+        ],
+        "ocsp_urls": [
+          "http://ocsp.digicert.com"
+        ]
+      },
+      {
+        "file": "out\\tsa_ltv\\digicert\\chain_03.pem",
+        "subject": "CN=DigiCert Trusted Root G4,OU=www.digicert.com,O=DigiCert Inc,C=US",
+        "issuer": "CN=DigiCert Assured ID Root CA,OU=www.digicert.com,O=DigiCert Inc,C=US",
+        "serial": 19414496059604725969669510860671817818,
+        "pem_sha256": "3aebcbe5144487ac3dbdac02369da773968addcae886d7449fbbf31bf496824d",
+        "not_before": "2022-08-01 00:00:00+00:00",
+        "not_after": "2031-11-09 23:59:59+00:00",
+        "crl_urls": [
+          "http://crl3.digicert.com/DigiCertAssuredIDRootCA.crl"
+        ],
+        "ocsp_urls": [
+          "http://ocsp.digicert.com"
+        ]
+      }
+    ],
+    "crls": [
+      {
+        "url": "http://crl3.digicert.com/DigiCertTrustedG4TimeStampingRSA4096SHA2562025CA1.crl",
+        "signer_serial": 16491414665796726099745990112217462320,
+        "issuer": "CN=DigiCert Trusted G4 TimeStamping RSA4096 SHA256 2025 CA1,O=DigiCert\\, Inc.,C=US",
+        "file": "out\\tsa_ltv\\digicert\\crl_01.crl",
+        "bytes": 929,
+        "sha256": "5d0eeeb3c14f3d96684c171f07dd1d505bd40a756260390e15765748d8d1fb96",
+        "this_update": "2026-11-25 16:40:26+00:00",
+        "next_update": "2026-12-16 16:40:26+00:00",
+        "revoked_count": 0,
+        "signer_revoked": false
+      },
+      {
+        "url": "http://crl3.digicert.com/DigiCertTrustedRootG4.crl",
+        "signer_serial": 18316726489210163671024321415498844550,
+        "issuer": "CN=DigiCert Trusted Root G4,OU=www.digicert.com,O=DigiCert Inc,C=US",
+        "file": "out\\tsa_ltv\\digicert\\crl_02.crl",
+        "bytes": 737,
+        "sha256": "ea9ced5b4aef47bfea17e131082055d1f66be671fe81815d27dfc78d97672223",
+        "this_update": "2026-11-20 17:42:35+00:00",
+        "next_update": "2026-12-11 17:42:35+00:00",
+        "revoked_count": 0,
+        "signer_revoked": false
+      },
+      {
+        "url": "http://crl3.digicert.com/DigiCertAssuredIDRootCA.crl",
+        "signer_serial": 19414496059604725969669510860671817818,
+        "issuer": "CN=DigiCert Assured ID Root CA,OU=www.digicert.com,O=DigiCert Inc,C=US",
+        "file": "out\\tsa_ltv\\digicert\\crl_03.crl",
+        "bytes": 1126,
+        "sha256": "5249a7fcaae3a91c9c5199ffed37d667ff4ba4b0dbe838f8a07c780890095e42",
+        "this_update": "2026-11-19 23:47:20+00:00",
+        "next_update": "2026-12-10 23:47:20+00:00",
+        "revoked_count": 13,
+        "signer_revoked": false
+      }
+    ],
+    "ocsp": [
+      {
+        "url": "http://ocsp.digicert.com",
+        "status": "VERIFIED",
+        "certificate_status": "GOOD",
+        "signature_verified": true,
+        "this_update": "2026-08-05 00:00:00+00:00",
+        "next_update": "2027-02-01 00:00:00+00:00"
+      },
+      {
+        "url": "http://ocsp.digicert.com",
+        "status": "VERIFIED",
+        "certificate_status": "GOOD",
+        "signature_verified": true,
+        "this_update": "2026-11-25 18:29:53+00:00",
+        "next_update": "2026-12-02 18:29:53+00:00"
+      }
+    ],
+    "ltv_ready": true,
+    "boundary": "CRL 提供的是最近一次吊销快照；若日后 signer 被吊销，需在 genTime 前后的吊销证据共同证明当时未吊销",
+    "ocsp_verified": 2
+  }
+}

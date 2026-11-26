@@ -1,0 +1,15 @@
+许可（逐类说明）
+
+1. 文档（docs/、README.md、PUBLISH_SCOPE.md）
+   CC BY 4.0 —— 可转载、可改编，须署名 "Steven Zhao（赵兴华）/ uibc-ip-standing" 并注明改动。
+
+2. 代码（verify/*.py、scripts/*.ps1、index.html）
+   MIT License
+   Copyright (c) 2026 Steven Zhao
+
+3. 承诺件（attest/ 下的哈希、令牌验签结果、签名、区块证明，及 PUBLICATION.json）
+   事实性数据。可自由引用、转载、核对；但不得改动数值后以本仓库名义重新发布。
+   任何改动都会使承诺失效，并被本仓库后续发布与区块数据比对出来。
+
+4. 商标与项目名称
+   "UIBC" 等名称为项目标识，本仓库不授予任何商标使用权。

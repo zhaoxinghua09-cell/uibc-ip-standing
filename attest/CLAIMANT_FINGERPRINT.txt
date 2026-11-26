@@ -1,0 +1,2 @@
+sha256(subjectPublicKeyInfo-DER)=866dab20c9ebb067ef38db75ee3f684c275b1fcce21984355ba77decb6a0468e
+key_reused=True

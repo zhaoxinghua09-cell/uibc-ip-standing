@@ -1,0 +1,143 @@
+{
+  "count": 2683,
+  "merkle_root": "bd08d9b237d16aebc1f3fc03c738168e398814407d20e07abda3388cec17773a",
+  "depth": 12,
+  "root_txt_sha256": "dda8ccf18d4f1cf1eb62a804fc1e7d1cfcb884f37283d6ead4e0260072992e72",
+  "anchors": {
+    "opentimestamps": {
+      "status": "CONFIRMED",
+      "basis": "公共区块浏览器双源（blockstream.info + mempool.space）比对区块头，merkle root 全部命中证明",
+      "sources_used": [
+        "blockstream",
+        "mempool"
+      ],
+      "sources_agree": true,
+      "heights": [
+        977354,
+        977367,
+        977390
+      ],
+      "pending_calendars": [
+        "https://alice.btc.calendar.opentimestamps.org",
+        "https://bob.btc.calendar.opentimestamps.org",
+        "https://btc.calendar.catallaxy.com",
+        "https://finney.calendar.eternitywall.com"
+      ],
+      "blocks": [
+        {
+          "height": 977354,
+          "block_hash": "00000000000000000000511422470fe101bd955fff49df9144ca8dafd92df1fa",
+          "gen_time_utc": "2026-11-24T10:00:51Z",
+          "explorer_matches_proof": true,
+          "sources_agree": true,
+          "matched_sources": [
+            "blockstream",
+            "mempool"
+          ]
+        },
+        {
+          "height": 977367,
+          "block_hash": "0000000000000000000149815f74ebe24750314def0b78ba173ac3614539fb30",
+          "gen_time_utc": "2026-11-24T13:08:34Z",
+          "explorer_matches_proof": true,
+          "sources_agree": true,
+          "matched_sources": [
+            "blockstream",
+            "mempool"
+          ]
+        },
+        {
+          "height": 977390,
+          "block_hash": "000000000000000000004f93e9b31059b03d08dcd502031eceeb5e8f3d53c0dd",
+          "gen_time_utc": "2026-11-24T16:51:33Z",
+          "explorer_matches_proof": true,
+          "sources_agree": true,
+          "matched_sources": [
+            "blockstream",
+            "mempool"
+          ]
+        }
+      ],
+      "ots_verify_exit": 1,
+      "detail": "Could not connect to Bitcoin node: module 'bitcoin' has no attribute 'rpc'"
+    },
+    "rfc3161": {
+      "status": "GRANTED",
+      "tsa": "digicert",
+      "pki_status": 0,
+      "meaning": "granted",
+      "gen_time_utc": "2026-11-26T04:50:28+00:00",
+      "imprint_matches": true,
+      "signature_verified": true,
+      "chain_verified": true,
+      "signer_valid_at_gen_time": true,
+      "chain_top": "CN=DigiCert Trusted Root G4,OU=www.digicert.com,O=DigiCert Inc,C=US",
+      "top_in_public_roots": true,
+      "redundancy": [
+        {
+          "tsa": "digicert",
+          "verified": true,
+          "top_in_public_roots": true
+        },
+        {
+          "tsa": "certum",
+          "verified": true,
+          "top_in_public_roots": true
+        },
+        {
+          "tsa": "apple",
+          "verified": true,
+          "top_in_public_roots": false
+        },
+        {
+          "tsa": "freetsa",
+          "verified": true,
+          "top_in_public_roots": false
+        }
+      ],
+      "ltv": {
+        "ready": true,
+        "crl_count": 3,
+        "certs_archived": 3,
+        "signer_revoked": false,
+        "ocsp_verified": 2,
+        "ocsp_statuses": [
+          {
+            "cert": "",
+            "certificate_status": "GOOD",
+            "signature_verified": true,
+            "this_update": "2026-08-05 00:00:00+00:00"
+          },
+          {
+            "cert": "",
+            "certificate_status": "GOOD",
+            "signature_verified": true,
+            "this_update": "2026-11-25 18:29:53+00:00"
+          }
+        ],
+        "ocsp": "已实查并验响应签名"
+      }
+    }
+  },
+  "anchor_warnings": [
+    "日志外锚尚未进块（PENDING）"
+  ],
+  "audit_log": {
+    "chain_ok": true,
+    "lines": 11,
+    "chain_since_line": 6,
+    "last_line_sha256": "9abd56effd3c0d3da394a7467d666d58742aac76a313b2a97263dc0001f7d0f8",
+    "external_anchor": {
+      "status": "PENDING",
+      "anchored_lines": 11,
+      "anchored_head": "9abd56effd3c0d3da394a7467d666d58742aac76a313b2a97263dc0001f7d0f8",
+      "head_matches_current": true,
+      "heights": [],
+      "next_expectation": "已提交至 calendar，通常 0.5–6 小时进块；下次巡检会自动 upgrade 并用双源确认",
+      "proof_file": "out\\ROOT-LOG.txt.ots"
+    },
+    "problems": []
+  },
+  "problems": [],
+  "verdict": "OK"
+}

@@ -1,0 +1,5 @@
+uibc-index-ledger-commitment
+entries=1
+head_entry_hash=579dde77889048c9a5d3afd21953c23e3ce8ee853024e117c859c851517e114e
+ledger_file_sha256=22716bc04352ef1d5c55e3f54797dd7a8a325819a01b7af7a66622e8cd8a3479
+committed_at_local=2026-11-26T13:41:07+0800
