@@ -16,7 +16,10 @@
       "merkle_root": "1cc108675393620dd9336f248332131c31df6b8c218946b366988bf49a7e7a0e",
       "gen_time_utc": "2026-11-24T10:00:51Z",
       "sources_agree": true,
-      "sources": ["blockstream", "mempool"]
+      "sources": [
+        "blockstream",
+        "mempool"
+      ]
     },
     {
       "height": 977367,
@@ -24,7 +27,10 @@
       "merkle_root": "baaadb04085803234bc486917e8f65ce5f05fefeabf4ba020bc517f35d38ac2b",
       "gen_time_utc": "2026-11-24T13:08:34Z",
       "sources_agree": true,
-      "sources": ["blockstream", "mempool"]
+      "sources": [
+        "blockstream",
+        "mempool"
+      ]
     },
     {
       "height": 977390,
@@ -32,13 +38,16 @@
       "merkle_root": "543262540268829faf4995930258c6708f1425beadad57841266204ce1f44524",
       "gen_time_utc": "2026-11-24T16:51:33Z",
       "sources_agree": true,
-      "sources": ["blockstream", "mempool"]
+      "sources": [
+        "blockstream",
+        "mempool"
+      ]
     }
   ],
   "rfc3161": {
     "tsa": "digicert",
-    "gen_time_utc": "2026-11-26T04:50:28Z",
-    "gen_time_original_field": "2026-11-26T12:50:28+08:00",
+    "gen_time_utc": "2026-11-26T04:50:28+00:00",
+    "gen_time_original_field": "2026-11-26T04:50:28+00:00",
     "hash_algorithm": "sha512",
     "imprint_sha512": "196b77c1ff8a93e3fd3fc17603eab9e4e43e0ee442b891e96f850dfb08535659d870c9bc8b1bc1e84362340a95c09f94b724b6b209eb19e6a335b4aeadcf738d",
     "imprint_matches_root_txt": true,
@@ -48,14 +57,19 @@
     "redundancy": {
       "verified_tsas": 4,
       "verified_with_public_root": 2,
-      "names": ["digicert", "certum", "apple", "freetsa"]
+      "names": [
+        "digicert",
+        "certum",
+        "apple",
+        "freetsa"
+      ]
     }
   },
   "claim": {
     "claim_id": "UIBC-IP-20261126",
     "claimant_pubkey_fingerprint_sha256": "866dab20c9ebb067ef38db75ee3f684c275b1fcce21984355ba77decb6a0468e",
-    "signature_file": "attest/CLAIM-SIG-3b7ee668cc1e.txt",
-    "claim_signature_sha256": "3b7ee668cc1ec67108ddc5f2a494fbecd205673342d40b90cd4b79f903a83148",
+    "signature_file": "attest/CLAIM-SIG-8012c49412cc.txt",
+    "claim_signature_sha256": "8012c49412cc04a6217bc78d46413476a80c6bbd501f80a9aa58a01134d8383e",
     "signed_payload_sha256": "e1d07c4dcaff10cabcf37022035a555ed56af294e649c0424c0ca62bf9f3ebb8",
     "signed_payload_form": "canonical JSON: sort_keys=True, separators=(',',':'), ensure_ascii=False, UTF-8",
     "signature_ok": true,
@@ -76,7 +90,7 @@
     "tree_size": 1,
     "root_hash": "02e24881a175a6e58e29c4199c67b7e9238f49e341a6d8dfc98bd9c48dec8942",
     "root_b64": "AuJIgaF1puWOKcQZnGe36SOPSeNBptjfyYvZxI3siUI=",
-    "signature_scheme": "Ed25519 (Go note 格式)",
+    "signature_scheme": "Ed25519 (note 格式，签名覆盖空行前文本)",
     "anchor_status": "PENDING"
   },
   "tsa_guard": {

@@ -1,6 +1,6 @@
 {
   "schema": "uibc-ip-public-index/1",
-  "generated_at_local": "2026-11-26T13:48:40+0800",
+  "generated_at_local": "2026-11-26T14:47:22+0800",
   "subject": {
     "name": "IP 权属证据链（2683 文件集合）",
     "claim_id": "UIBC-IP-20261126"
@@ -11,10 +11,10 @@
     "depth": 12,
     "root_txt_sha256": "dda8ccf18d4f1cf1eb62a804fc1e7d1cfcb884f37283d6ead4e0260072992e72",
     "pack_id": "20261126-dda8ccf18d4f",
-    "log_anchor_head": "410d0894f8e505b24fee31b6eea62fd3f3eb36c498f7ca3879a9e8e74e0a91e0",
+    "log_anchor_head": "9abd56effd3c0d3da394a7467d666d58742aac76a313b2a97263dc0001f7d0f8",
     "index_ledger_head": "579dde77889048c9a5d3afd21953c23e3ce8ee853024e117c859c851517e114e",
     "claim_pubkey_fingerprint": "866dab20c9ebb067ef38db75ee3f684c275b1fcce21984355ba77decb6a0468e",
-    "claim_signature_sha256": "3b7ee668cc1ec67108ddc5f2a494fbecd205673342d40b90cd4b79f903a83148"
+    "claim_signature_sha256": "8012c49412cc04a6217bc78d46413476a80c6bbd501f80a9aa58a01134d8383e"
   },
   "bitcoin_anchors": [
     {
