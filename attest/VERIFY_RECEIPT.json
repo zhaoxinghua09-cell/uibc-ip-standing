@@ -1,0 +1,66 @@
+{
+  "schema": "uibc-ip-verify-receipt/1",
+  "verdict": "PASS",
+  "checked_at_utc": "2026-11-26T15:08:08+00:00",
+  "repo": "D:\\Workbuddy\\回家同步\\IP证据链_20261126\\public_repo\\uibc-ip-standing",
+  "merkle_root": "bd08d9b237d16aebc1f3fc03c738168e398814407d20e07abda3388cec17773a",
+  "offline": false,
+  "checks": [
+    {
+      "check": "ROOT.txt sha256 == index.json",
+      "result": "PASS",
+      "detail": "dda8ccf18d4f1cf1… vs dda8ccf18d4f1cf1…"
+    },
+    {
+      "check": "ROOT.txt 内 root == index.json merkle_root",
+      "result": "PASS",
+      "detail": "bd08d9b237d16aeb…"
+    },
+    {
+      "check": "ROOT.txt 内 file_count == index.json",
+      "result": "PASS",
+      "detail": "count=2683"
+    },
+    {
+      "check": "连续性哈希链可重算",
+      "result": "PASS",
+      "detail": "1 条"
+    },
+    {
+      "check": "连续性未停更（≤ 3 天）",
+      "result": "PASS",
+      "detail": "最近 2026-11-26，距今 0 天"
+    },
+    {
+      "check": "主张签名 Ed25519",
+      "result": "PASS",
+      "detail": "规范字节 sha256=e1d07c4dcaff10ca…"
+    },
+    {
+      "check": "DID 公钥 == CLAIMANT_PUBKEY.pem",
+      "result": "PASS",
+      "detail": "multibase=z6MkqFj81kWiUc1VKD…"
+    },
+    {
+      "check": "DID 记录的 pem_sha256 一致",
+      "result": "PASS",
+      "detail": "did.json.uibc.pem_sha256"
+    },
+    {
+      "check": "DID 在线解析且 ID 一致",
+      "result": "PASS",
+      "detail": "did:web:zhaoxinghua09-cell.github.io:uib"
+    },
+    {
+      "check": "Rekor v1 在线在册",
+      "result": "PASS",
+      "detail": "logIndex=4121954662"
+    }
+  ],
+  "counts": {
+    "pass": 10,
+    "warn": 0,
+    "fail": 0
+  },
+  "boundary": "本回执只证明：运行方在本机按本仓库脚本重算并比对了这些数值；不证明主张为真，也不具法律效力。"
+}
