@@ -1,0 +1,9 @@
+{
+  "did": "did:web:zhaoxinghua09-cell.github.io:uibc-ip-standing",
+  "resolve_url": "https://zhaoxinghua09-cell.github.io/uibc-ip-standing/did.json",
+  "publicKeyMultibase": "z6MkqFj81kWiUc1VKDwBoWfP7ghLdeHYcUoJnsqBgaKKoZJL",
+  "pem_sha256": "b2e1d5f4658b663806df4531bb506540a548224ea76a7527ca89b3bb163a4446",
+  "raw_key_b64url": "oHwzojzUIFfzJQNHv9ypytwqP2Pkysfcj4JKrH6Yvb0",
+  "bound_at_local": null,
+  "note": "binding only; the Ed25519 claim signature remains the single source of authorship."
+}

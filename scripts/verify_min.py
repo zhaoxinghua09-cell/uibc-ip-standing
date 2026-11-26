@@ -121,6 +121,53 @@ def check_rekor(repo, offline):
         add("Rekor v1 在线在册", False, f"{type(e).__name__}: {str(e)[:80]}")
 
 
+B58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+
+
+def b58decode(s):
+    n = 0
+    for ch in s:
+        n = n * 58 + B58.index(ch)
+    b = n.to_bytes((n.bit_length() + 7) // 8, "big")
+    pad = len(s) - len(s.lstrip("1"))
+    return b"\x00" * pad + b
+
+
+def check_did(repo, offline):
+    """did:web 文档必须绑定同一把主张公钥（多基解码后逐字节比对）。"""
+    import base64
+    p = repo / "did.json"
+    if not p.is_file():
+        add("DID 文档存在", False, "did.json 缺失")
+        return
+    doc = load_json(p)
+    vm = (doc.get("verificationMethod") or [{}])[0]
+    mb = vm.get("publicKeyMultibase") or ""
+    try:
+        raw = b58decode(mb[1:])[2:]  # 去掉 multibase 前缀 'z' 与 multicodec 0xed01
+    except Exception as e:
+        add("DID 公钥可解码", False, f"{type(e).__name__}: {str(e)[:60]}")
+        return
+    pem = (repo / "attest" / "CLAIMANT_PUBKEY.pem").read_bytes()
+    b64 = b"".join(l.strip() for l in pem.strip().splitlines() if not l.startswith(b"-----"))
+    der_raw = base64.b64decode(b64)[-32:]
+    ok = raw == der_raw
+    add("DID 公钥 == CLAIMANT_PUBKEY.pem", ok, f"multibase={mb[:18]}…")
+    add("DID 记录的 pem_sha256 一致",
+        (doc.get("uibc") or {}).get("pem_sha256") == sha256_bytes(pem),
+        "did.json.uibc.pem_sha256")
+    if offline:
+        add("DID 可解析（--offline 跳过）", False, "已跳过，未在线解析", warn=True)
+        return
+    try:
+        with urllib.request.urlopen((doc.get("service") or [{}])[0].get("serviceEndpoint", "") + "did.json",
+                                    timeout=20) as r:
+            live = json.loads(r.read())
+        add("DID 在线解析且 ID 一致", live.get("id") == doc.get("id"), str(doc.get("id"))[:40])
+    except Exception as e:
+        add("DID 在线解析", False, f"{type(e).__name__}: {str(e)[:60]}")
+
+
 def run_checks(repo, offline=False):
     """跑全部检查并返回结果列表（供 selftest_negative.py 之类的程序化调用）。"""
     del RESULTS[:]
@@ -128,6 +175,7 @@ def run_checks(repo, offline=False):
         check_core(repo)
         check_continuity(repo)
         check_signature(repo)
+        check_did(repo, offline)
         check_rekor(repo, offline)
     except Exception as e:
         add("脚本异常", False, f"{type(e).__name__}: {str(e)[:100]}")

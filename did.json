@@ -1,0 +1,33 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1"
+  ],
+  "id": "did:web:zhaoxinghua09-cell.github.io:uibc-ip-standing",
+  "verificationMethod": [
+    {
+      "id": "did:web:zhaoxinghua09-cell.github.io:uibc-ip-standing#claimant-ed25519",
+      "type": "Ed25519VerificationKey2020",
+      "controller": "did:web:zhaoxinghua09-cell.github.io:uibc-ip-standing",
+      "publicKeyMultibase": "z6MkqFj81kWiUc1VKDwBoWfP7ghLdeHYcUoJnsqBgaKKoZJL"
+    }
+  ],
+  "authentication": [
+    "did:web:zhaoxinghua09-cell.github.io:uibc-ip-standing#claimant-ed25519"
+  ],
+  "assertionMethod": [
+    "did:web:zhaoxinghua09-cell.github.io:uibc-ip-standing#claimant-ed25519"
+  ],
+  "service": [
+    {
+      "id": "did:web:zhaoxinghua09-cell.github.io:uibc-ip-standing#evidence",
+      "type": "UIBCEvidenceChain",
+      "serviceEndpoint": "https://zhaoxinghua09-cell.github.io/uibc-ip-standing/"
+    }
+  ],
+  "alsoKnownAs": [],
+  "uibc": {
+    "pem_sha256": "b2e1d5f4658b663806df4531bb506540a548224ea76a7527ca89b3bb163a4446",
+    "claim_id": "UIBC-IP-20261126",
+    "note": "本 DID 只绑定公钥与证据入口；不主张法律效力，也不替代 PCC/公证。"
+  }
+}

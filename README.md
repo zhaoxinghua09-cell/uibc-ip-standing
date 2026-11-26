@@ -18,6 +18,8 @@
 
 **验证器不会"永远 PASS"**：`python3 scripts/selftest_negative.py` 在临时副本上制造 5 种篡改（改索引根值、改 `ROOT.txt`、改连续性哈希、把台账整体改旧、改 `CLAIM.json` 内容），逐项断言必须被抓——当前 5/5 `CAUGHT`。CI 每次推送都跑这个自测。
 
+**DID 身份绑定（did:web，可被解析器直接查）**：`did:web:zhaoxinghua09-cell.github.io:uibc-ip-standing`，文档 <https://zhaoxinghua09-cell.github.io/uibc-ip-standing/did.json>。文档里的 `publicKeyMultibase` 解码后与 `attest/CLAIMANT_PUBKEY.pem` 逐字节相同，`did.json.uibc.pem_sha256` 也钉死同一份 PEM。校验器（`verify_min.py`）会把这条对账跑一遍；CI 里也有独立一步。**注意**：DID 只是把公钥与入口绑成一个能解析的名字，不新增任何签名，也不改变原主张的法律性质。
+
 **继任与离场预案**：[`SUCCESSION.md`](SUCCESSION.md) —— 证据本身不依赖我（区块、TSA 令牌、公钥都在公共体系里）；真正会丢的是"以同一身份续签"的能力，以及"续跑心跳"的人。交叉签名继任程序已写明，尚未启用，单点风险不掩饰。
 
 ---
