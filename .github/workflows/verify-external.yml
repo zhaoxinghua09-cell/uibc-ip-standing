@@ -1,0 +1,68 @@
+name: verify-external (reusable)
+
+# 给第三方仓库直接调用的复验工作流（这是静态站能提供的最接近"接口"的东西）：
+#
+#   jobs:
+#     uibc:
+#       uses: zhaoxinghua09-cell/uibc-ip-standing/.github/workflows/verify-external.yml@main
+#
+# 它会在调用方的 CI 里拉取本仓库，跑零依赖复验，并把机器可读裁定作为 artifact 存档。
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: 要复验的提交/分支（默认 main）
+        required: false
+        type: string
+        default: main
+      offline:
+        description: 是否跳过联网检查（Rekor、DID 解析）
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取证据仓库
+        uses: actions/checkout@v4
+        with:
+          repository: zhaoxinghua09-cell/uibc-ip-standing
+          ref: ${{ inputs.ref }}
+          path: evidence
+
+      - name: 准备 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 零依赖复验（文本）
+        run: |
+          set -u
+          FLAG=""
+          if [ "${{ inputs.offline }}" = "true" ]; then FLAG="--offline"; fi
+          python3 evidence/scripts/verify_min.py --path evidence $FLAG | tee receipt.txt
+
+      - name: 机器可读裁定（JSON）
+        run: |
+          set -u
+          FLAG=""
+          if [ "${{ inputs.offline }}" = "true" ]; then FLAG="--offline"; fi
+          python3 evidence/scripts/verify_min.py --path evidence $FLAG --json > verdict.json
+          python3 - <<'PY'
+import json
+v = json.load(open("verdict.json", encoding="utf-8"))
+print("verdict =", v["verdict"], "| counts =", v["counts"], "| root =", v["merkle_root"])
+assert v["verdict"] == "PASS", "复验未通过"
+PY
+
+      - name: 归档回执
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: uibc-ip-verdict
+          path: |
+            verdict.json
+            receipt.txt

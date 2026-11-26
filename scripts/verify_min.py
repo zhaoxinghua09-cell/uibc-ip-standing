@@ -186,13 +186,36 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--path", default=None)
     ap.add_argument("--offline", action="store_true")
+    ap.add_argument("--json", action="store_true", help="输出机器可读的核验裁定（供第三方归档/入 CI）")
     a = ap.parse_args()
     repo = pathlib.Path(a.path).resolve() if a.path else pathlib.Path(__file__).resolve().parent.parent
     res = run_checks(repo, a.offline)
     fails = [r for r in res if r["result"] == "FAIL"]
+    verdict = "FAIL" if fails else "PASS"
+    if a.json:
+        idx_root = None
+        try:
+            idx_root = load_json(repo / "index.json")["commitments"]["merkle_root"]
+        except Exception:
+            pass
+        out = {
+            "schema": "uibc-ip-verify-receipt/1",
+            "verdict": verdict,
+            "checked_at_utc": dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat(),
+            "repo": str(repo),
+            "merkle_root": idx_root,
+            "offline": bool(a.offline),
+            "checks": res,
+            "counts": {"pass": sum(1 for r in res if r["result"] == "PASS"),
+                       "warn": sum(1 for r in res if r["result"] == "WARN"),
+                       "fail": len(fails)},
+            "boundary": "本回执只证明：运行方在本机按本仓库脚本重算并比对了这些数值；不证明主张为真，也不具法律效力。",
+        }
+        print(json.dumps(out, ensure_ascii=False, indent=2))
+        return 1 if fails else 0
     for r in res:
         print(f"{r['result']:<4} {r['check']}  {r['detail']}")
-    print(f"结论：{'FAIL' if fails else 'PASS'}（{len(res) - len(fails)} 项通过/警告，{len(fails)} 项失败）")
+    print(f"结论：{verdict}（{len(res) - len(fails)} 项通过/警告，{len(fails)} 项失败）")
     return 1 if fails else 0
 
 

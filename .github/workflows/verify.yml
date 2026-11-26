@@ -88,3 +88,15 @@ jobs:
           set -u
           python3 scripts/verify_min.py --offline --path . 2>&1 | grep -qE "^PASS .*DID 公钥 == CLAIMANT_PUBKEY.pem" || {
             echo "::error::DID 公钥与主张公钥不一致"; exit 1; }
+
+      - name: 机器可读裁定（JSON 回执结构自检）
+        run: |
+          set -u
+          python3 scripts/verify_min.py --offline --json > verdict.json
+          python3 - <<'PY'
+import json
+v = json.load(open("verdict.json", encoding="utf-8"))
+print("verdict =", v["verdict"], "| counts =", v["counts"])
+assert v["schema"] == "uibc-ip-verify-receipt/1"
+assert v["verdict"] == "PASS"
+PY
