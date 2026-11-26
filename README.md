@@ -14,6 +14,8 @@
 
 **连续性台账页**：<https://zhaoxinghua09-cell.github.io/uibc-ip-standing/continuity.html> —— 每天一条心跳记录（当日 Merkle 根、日志链头、台账链头、主 TSA 时间），按 `prev_entry_hash` 串成哈希链，缺口与"承诺代际变化"都列在页面上。CI 每次推送重算整条链；最近一条日期超过 3 天没更新，CI 直接报红。
 
+**一条命令复验（任何系统，零依赖）**：`git clone` 后执行 `./verify.sh`（或 `python3 scripts/verify_min.py`），只需 Python 3 标准库，7 项检查：`ROOT.txt` sha256、文件内 root、文件数、连续性哈希链、连续性未停更、主张签名 Ed25519（有 `cryptography` 则实签，无则 WARN 而非 PASS）、Rekor v1 在线在册（`--offline` 可跳过）。适合直接塞进别人的 CI。
+
 ---
 
 ## 一、被承诺的对象

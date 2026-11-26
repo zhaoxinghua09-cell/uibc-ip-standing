@@ -72,3 +72,8 @@ jobs:
         run: |
           set -u
           python scripts/check_continuity.py
+
+      - name: 零依赖复验入口（第三方 CI 视角）
+        run: |
+          set -u
+          python3 scripts/verify_min.py --offline
