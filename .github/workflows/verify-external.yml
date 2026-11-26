@@ -51,12 +51,7 @@ jobs:
           FLAG=""
           if [ "${{ inputs.offline }}" = "true" ]; then FLAG="--offline"; fi
           python3 evidence/scripts/verify_min.py --path evidence $FLAG --json > verdict.json
-          python3 - <<'PY'
-import json
-v = json.load(open("verdict.json", encoding="utf-8"))
-print("verdict =", v["verdict"], "| counts =", v["counts"], "| root =", v["merkle_root"])
-assert v["verdict"] == "PASS", "复验未通过"
-PY
+          python3 -c "import json;v=json.load(open('verdict.json',encoding='utf-8'));print('verdict =',v['verdict'],'| counts =',v['counts'],'| root =',v['merkle_root']);assert v['verdict']=='PASS', '复验未通过'"
 
       - name: 归档回执
         if: always()

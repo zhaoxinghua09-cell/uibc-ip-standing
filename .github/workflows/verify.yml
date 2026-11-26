@@ -93,10 +93,4 @@ jobs:
         run: |
           set -u
           python3 scripts/verify_min.py --offline --json > verdict.json
-          python3 - <<'PY'
-import json
-v = json.load(open("verdict.json", encoding="utf-8"))
-print("verdict =", v["verdict"], "| counts =", v["counts"])
-assert v["schema"] == "uibc-ip-verify-receipt/1"
-assert v["verdict"] == "PASS"
-PY
+          python3 -c "import json;v=json.load(open('verdict.json',encoding='utf-8'));print('verdict =',v['verdict'],'| counts =',v['counts']);assert v['schema']=='uibc-ip-verify-receipt/1' and v['verdict']=='PASS'"
