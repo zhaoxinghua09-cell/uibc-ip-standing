@@ -18,10 +18,10 @@ $patterns = @(
   @{ name = 'API key(sk-)';      rx = 'sk-[A-Za-z0-9]{20,}' },
   @{ name = 'AWS key';           rx = 'AKIA[0-9A-Z]{16}' },
   @{ name = 'Slack/Stripe 风格';  rx = '(xox[baprs]-|sk_live_[A-Za-z0-9]{10,})' },
-  @{ name = 'Windows 绝对路径';   rx = '[A-Za-z]:\\\\Users\\\\|[A-Za-z]:\\\\Workbuddy\\\\|[A-Za-z]:\\\\标准\\\\' },
-  @{ name = '本机用户名';         rx = 'SZYL|Administrator' },
-  @{ name = '本机主机名';         rx = 'DESKTOP-IGJBTUB|赵兴华的台式机' },
-  @{ name = '保险库路径';         rx = 'ucvault_local|\.vault\\\\' }
+  @{ name = 'Windows 绝对路径';   rx = '[A-Za-z]:\\Users\\|[A-Za-z]:\\Workbuddy\\|[A-Za-z]:\\标准\\' },
+  @{ name = '本机用户名';         rx = '[A-Za-z]:\\Users\\[^\\"]+' },
+  @{ name = '本机主机名';         rx = 'DESKTOP-[A-Z0-9]{4,}|台式机' },
+  @{ name = '保险库路径';         rx = 'ucvault_local|\.vault\\' }
 )
 
 # 只扫会被提交的内容：git 已跟踪 + 未跟踪但未被忽略的文件
@@ -71,9 +71,13 @@ foreach ($f in $files) {
   }
 }
 
-# 4) 只允许一个 .pem：主张公钥
+# 4) 只允许公钥类 .pem（主张公钥 + 已公开的第三方日志公钥），禁私钥
 $pems = $files | Where-Object { $_ -match '\.pem$' }
-foreach ($p in $pems) { if ($p -notmatch 'CLAIMANT_PUBKEY\.pem$') { $hits.Add("PEM    $p -> 仅允许 CLAIMANT_PUBKEY.pem") } }
+foreach ($p in $pems) {
+  $ok = ($p -match 'CLAIMANT_PUBKEY\.pem$') -or ($p -match 'REKOR_V2_PUBKEY\.pem$')
+  if (-not $ok) { $hits.Add("PEM    $p -> 仅允许公开公钥（CLAIMANT_PUBKEY / REKOR_V2_PUBKEY）") }
+  elseif ($p -match 'PRIVATE') { $hits.Add("PEM    私钥文件禁止发布: $p") }
+}
 
 # 5) 关键数值与 PUBLICATION.json 对账
 $pubFile = Join-Path $root 'PUBLICATION.json'

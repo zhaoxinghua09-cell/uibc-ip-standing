@@ -62,6 +62,6 @@ git clone https://github.com/zhaoxinghua09-cell/uibc-ip-standing && cd uibc-ip-s
 |---|---|---|
 | 家用台式机（写者） | 生成、签名、发布 | `verify_min.py` 10 项 PASS |
 | 云主机（Linux，干净环境，无私钥、无历史文件） | 纯第三方视角 | `git clone --depth 1` → `python3 scripts/verify_min.py` → **PASS（10 项，0 失败）**，含 DID 在线解析、Rekor 在册 |
-| 公司机（DESKTOP-IGJBTUB） | 只读核验 | Pages / `ROOT.txt` sha256 / Rekor logIndex 三项通过；该机 `github.com:443` 不通，无法 clone |
+| 公司机（只读机） | 只读核验 | Pages / `ROOT.txt` sha256 / Rekor logIndex 三项通过；该机 `github.com:443` 不通，无法 clone |
 
 线上可用性备注：GitHub Pages 会偶发 503（本次实测 `did.json` 首请求 503、5 秒后重试 3 次均 200）。静态托管没有 SLA，抓取方应带重试；这不是文件问题。
