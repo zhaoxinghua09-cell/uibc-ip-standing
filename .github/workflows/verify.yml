@@ -67,3 +67,8 @@ jobs:
               exit 1
               ;;
           esac
+
+      - name: 连续性台账守门（哈希链 + 停更检测）
+        run: |
+          set -u
+          python scripts/check_continuity.py

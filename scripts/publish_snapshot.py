@@ -39,6 +39,7 @@ ATTEST_FILES = [
     "REKOR_PROOF.json", "REPO_WATCH.json",
     "REKOR_V2_ENTRY.json", "REKOR_V2_VERIFY.json", "REKOR_V2_PUBKEY.pem",
     "REKOR_V2_CHECKPOINT.txt",
+    "CONTINUITY.jsonl", "CONTINUITY.json",
 ]
 
 
@@ -186,7 +187,15 @@ def main():
         r = subprocess.run([sys.executable, str(witgen)], cwd=str(src), capture_output=True, text=True)
         if r.returncode != 0:
             sys.exit(f"FATAL: make_witness_template.py 生成失败：{r.stderr[-500:]}")
-    for n in ("index.html", "index.json", "certificate.html"):
+    # 连续性台账：先跑心跳（幂等，同一天同一快照不重复写），再生成页面
+    for gen_name in ("heartbeat.py", "make_continuity.py"):
+        g = src / gen_name
+        if g.exists():
+            r = subprocess.run([sys.executable, str(g)], cwd=str(src), capture_output=True, text=True)
+            if r.returncode != 0:
+                sys.exit(f"FATAL: {gen_name} 失败：{r.stderr[-500:]}")
+
+    for n in ("index.html", "index.json", "certificate.html", "continuity.html"):
         p = out / "public_index" / n
         if p.exists():
             shutil.copy2(p, REPO / n)

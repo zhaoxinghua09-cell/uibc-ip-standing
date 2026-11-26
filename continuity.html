@@ -1,0 +1,42 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<title>连续性台账 · UIBC IP 站位</title>
+<style>
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;max-width:900px;margin:32px auto;padding:0 20px;line-height:1.7;color:#111}
+h1{font-size:20px} h2{font-size:15px;margin-top:26px;border-bottom:1px solid #eee;padding-bottom:4px}
+code{background:#f5f5f5;padding:1px 4px;border-radius:3px;font-size:12px}
+table{border-collapse:collapse;width:100%;font-size:12.5px} th,td{border:1px solid #e5e5e5;padding:5px 7px;text-align:left}
+.small{font-size:12.5px;color:#555}
+</style></head><body>
+<h1>连续性台账（每日心跳）</h1>
+<p class="small">这一页回答一个问题：<b>这套承诺是不是有人在持续核？</b> 每天一条记录，锚定当日的 Merkle 根、日志链头、台账链头与主 TSA 时间，并按 <code>prev_entry_hash</code> 串成哈希链。某天缺条目就是断点，缺口直接列出来，不藏。</p>
+
+<h2>汇总</h2>
+<table>
+<tr><th>条目数</th><td>1</td><th>覆盖天数</th><td>1</td></tr>
+<tr><th>首条日期</th><td>2026-11-26</td><th>最近日期</td><td>2026-11-26</td></tr>
+<tr><th>哈希链自检</th><td>通过</td><th>缺口</th><td>无缺口</td></tr>
+<tr><th>当前 Merkle 根</th><td colspan="3"><code>bd08d9b237d16aebc1f3fc03c738168e398814407d20e07abda3388cec17773a</code></td></tr>
+<tr><th>文件数</th><td colspan="3">2683</td></tr>
+</table>
+
+<h2>承诺代际变化（drift）</h2>
+<ul class="small"><li>无（承诺值自首条以来未发生代际变化）</li></ul>
+<p class="small">drift 非空只表示某天换了新的证据包（新根值），<b>不表示旧承诺失效</b>——旧值仍按旧值可验，旧记录也不会被改写。</p>
+
+<h2>逐日记录</h2>
+<table><tr><th>#</th><th>日期（UTC+8）</th><th>Merkle 根</th><th>台账链头</th><th>主 TSA genTime</th><th>本条哈希</th></tr>
+<tr><td>1</td><td>2026-11-26</td><td><code>bd08d9b237d16aebc1f3fc03c738168e…</code></td><td><code>579dde77889048c9…</code></td><td>2026-11-26T13:37:41+00:00</td><td><code>cb71beedac2b23ae5f0712f4…</code></td></tr>
+</table>
+
+<h2>怎么自己核</h2>
+<ul class="small">
+<li>取 <a href="attest/CONTINUITY.jsonl">attest/CONTINUITY.jsonl</a>，逐行重算 <code>sha256(canonical_json(去掉 entry_hash 的整条))</code>，应等于该行 <code>entry_hash</code>；</li>
+<li>下一行的 <code>prev_entry_hash</code> 应等于上一行的 <code>entry_hash</code>；</li>
+<li>把每行的 <code>snapshot.merkle_root</code> 与 <a href="attest/ROOT.txt">ROOT.txt</a>、<a href="attest/TSA.json">TSA.json</a> 对照。</li>
+<li>CI 每次推送都会跑这套检查；若最近一条日期距今超过 3 天，CI 直接报红（用来暴露"停更"）。</li>
+</ul>
+
+<h2>边界</h2>
+<p class="small">连续性只证明"这些日期里有人在核并写进了只增台账"，不证明主张为真，也不产生法律效力；台账在本机生成后随仓发布，别人拿到的是快照，能验哈希链一致，不能验"我们没私下另造一条"。这条边界与全站其它页一致。</p>
+<p class="small">生成于  · 证据包 <code></code></p>
+</body></html>

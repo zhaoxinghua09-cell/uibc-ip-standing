@@ -1,0 +1,18 @@
+{
+  "entries": 1,
+  "first_date": "2026-11-26",
+  "last_date": "2026-11-26",
+  "days_covered": 1,
+  "chain_valid": true,
+  "gaps": [],
+  "gap_count": 0,
+  "entries_check": [
+    {
+      "seq": 1,
+      "date_local": "2026-11-26",
+      "entry_hash_ok": true,
+      "prev_link_ok": true
+    }
+  ],
+  "boundary": "连续性只证明：这些日期里，承诺值被人核过并写进了只增台账。某天缺条目即断点；drift 非空表示承诺代际发生变化（换了新的证据包），不表示旧承诺失效——旧承诺仍按旧值可验。"
+}

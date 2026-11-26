@@ -12,6 +12,8 @@
 
 **见证人指引**：<https://zhaoxinghua09-cell.github.io/uibc-ip-standing/witness.html> —— 三步给出独立回执（当前回执 0 条，这是唯一还缺的"外部签字"环节）。提交入口是本仓的 **Issue 表单**（`witness:` 开头），模板 `attest/WITNESS_RECEIPT_TEMPLATE.json` 会随每次发布刷新成当前数值。回执收到后由 `scripts/ingest_witness.py` 机器初核五步（结构／数值／自算／区块双源／登记），不通过退回并写明理由，通过才进只增台账。
 
+**连续性台账页**：<https://zhaoxinghua09-cell.github.io/uibc-ip-standing/continuity.html> —— 每天一条心跳记录（当日 Merkle 根、日志链头、台账链头、主 TSA 时间），按 `prev_entry_hash` 串成哈希链，缺口与"承诺代际变化"都列在页面上。CI 每次推送重算整条链；最近一条日期超过 3 天没更新，CI 直接报红。
+
 ---
 
 ## 一、被承诺的对象
