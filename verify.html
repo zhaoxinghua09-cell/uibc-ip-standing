@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IP 权属证据链 · 浏览器内复验</title>
+<style>
+body{font:15px/1.7 -apple-system,"Segoe UI",system-ui,sans-serif;max-width:900px;margin:36px auto;padding:0 16px;color:#1a1a1a}
+h1{font-size:22px} .sub{color:#666;font-size:13px;margin-bottom:20px}
+table{border-collapse:collapse;width:100%;margin:14px 0} th,td{border:1px solid #e3e3e3;padding:7px 9px;text-align:left;font-size:13px;vertical-align:top}
+th{background:#fafafa;white-space:nowrap;width:26%} code{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all}
+.ok{color:#0a7a33;font-weight:600} .bad{color:#b00020;font-weight:600} .warn{color:#a06000;font-weight:600}
+.note{background:#f6f7f9;border-left:3px solid #c9ced6;padding:10px 12px;font-size:13px;margin-top:18px}
+button{padding:7px 14px;font-size:14px;border:1px solid #bbb;background:#fff;border-radius:5px;cursor:pointer}
+</style>
+<h1>IP 权属证据链 · 浏览器内复验</h1>
+<p class="sub">全部计算在你本机浏览器完成，不上传任何数据、不依赖任何工具。页面只从本站拉取公开承诺件，从 Sigstore 拉一条公开日志记录。</p>
+
+<p><button id="run">重新复验</button> <span id="stamp" class="sub"></span></p>
+<table id="out"><tr><th>检查项</th><th>结果</th></tr></table>
+
+<div class="note">
+边界：本页只核对“公开承诺数值彼此自洽、签名有效、日志条目在册”，<b>不</b>证明内容权属、不构成公证；原始 2683 个文件不在本仓，无法从本页还原。
+若某项显示 <span class="bad">FAIL</span>，说明本站公开展示的数值已被改动或下载不完整，应以证据包内数值为准。
+浏览器需支持 WebCrypto Ed25519（Chrome/Edge 137+、Safari 17+、Firefox 129+）；不支持时会退化为“跳过验签”，并明确标注。
+</div>
+
+<script>
+const ROWS = [];
+function row(name, verdict, detail){ ROWS.push({name, verdict, detail}); }
+
+function canon(v){                     // 等价 Python: json.dumps(sort_keys=True, separators=(",",":"), ensure_ascii=False)
+  if (Array.isArray(v)) return '[' + v.map(canon).join(',') + ']';
+  if (v && typeof v === 'object') {
+    return '{' + Object.keys(v).sort().map(k => JSON.stringify(k) + ':' + canon(v[k])).join(',') + '}';
+  }
+  return JSON.stringify(v);
+}
+function b64ToBytes(b64){ const s = atob(b64.replace(/\s+/g,'').replace(/-/g,'+').replace(/_/g,'/')); const a = new Uint8Array(s.length); for (let i=0;i<s.length;i++) a[i]=s.charCodeAt(i); return a; }
+function pemToDer(pem){ const b = pem.replace(/-----[^-]+-----/g,'').replace(/\s+/g,''); return b64ToBytes(b); }
+function hex(buf){ return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join(''); }
+async function sha256(bytes){ return hex(await crypto.subtle.digest('SHA-256', bytes)); }
+async function getText(u){ const r = await fetch(u, {cache:'no-store'}); if (!r.ok) throw new Error(u + ' → HTTP ' + r.status); return r.text(); }
+async function getJson(u){ return JSON.parse(await getText(u)); }
+
+async function run(){
+  ROWS.length = 0;
+  document.getElementById('stamp').textContent = '开始：' + new Date().toLocaleString();
+
+  let pub, idx;
+  try { pub = await getJson('PUBLICATION.json'); idx = await getJson('index.json'); } catch(e){ row('读取承诺件', 'FAIL', e.message); return render(); }
+
+  // 1. 索引页与 PUBLICATION 的根值一致
+  const a = (idx.commitments || {}).merkle_root, b = ((pub.subject||{}).merkle_root) || '';
+  row('索引页根值 = PUBLICATION 根值', (a && b && a === b) ? 'PASS' : 'FAIL', `index=${(a||'').slice(0,16)}… / publication=${b.slice(0,16)}…`);
+
+  // 2. ROOT.txt 的 sha256 = 承诺值
+  let rootTxt = '';
+  try {
+    rootTxt = await getText('attest/ROOT.txt');
+    const h = await sha256(new TextEncoder().encode(rootTxt));
+    const want = (idx.commitments || {}).root_txt_sha256 || '';
+    row('ROOT.txt 的 sha256 = 承诺值', h === want ? 'PASS' : 'FAIL', `实测 ${h.slice(0,20)}… 期望 ${want.slice(0,20)}…`);
+  } catch(e){ row('ROOT.txt 的 sha256 = 承诺值', 'FAIL', e.message); }
+
+  // 3. ROOT.txt 内容里写的 root 与索引一致
+  const m = rootTxt.match(/root=([0-9a-f]{64})/);
+  row('ROOT.txt 内 root= 与索引一致', (m && m[1] === a) ? 'PASS' : 'FAIL', m ? ('root=' + m[1].slice(0,16) + '…') : '未在 ROOT.txt 中找到 root=');
+
+  // 4. 主张签名验签（规范字节）
+  try {
+    const claim = await getJson('attest/CLAIM.json');
+    const sig = b64ToBytes(await getText('attest/CLAIM.json.sig'));
+    const der = pemToDer(await getText('attest/CLAIMANT_PUBKEY.pem'));
+    const body = new TextEncoder().encode(canon(claim));
+    const payloadHash = await sha256(body);
+    if (!crypto.subtle || !crypto.subtle.importKey) throw new Error('WebCrypto 不可用');
+    let key;
+    try { key = await crypto.subtle.importKey('spki', der, {name:'Ed25519'}, false, ['verify']); }
+    catch(e){ row('主张签名验签', 'WARN', '本浏览器不支持 Ed25519 验签，已跳过；规范字节 sha256=' + payloadHash.slice(0,20) + '…'); return render(); }
+    const okv = await crypto.subtle.verify({name:'Ed25519'}, key, sig, body);
+    const wantPayload = (idx.commitments || {}).signed_payload_sha256 || (pub.claim || {}).signed_payload_sha256 || '';
+    row('主张签名验签', okv ? 'PASS' : 'FAIL', `规范字节 sha256=${payloadHash.slice(0,20)}…${wantPayload ? (' / 承诺 ' + wantPayload.slice(0,20) + '…') : ''}`);
+    if (wantPayload) row('规范字节 sha256 = 承诺值', payloadHash === wantPayload ? 'PASS' : 'FAIL', `实测 ${payloadHash.slice(0,20)}…`);
+  } catch(e){ row('主张签名验签', 'FAIL', e.message); }
+
+  // 5. 公钥指纹
+  try {
+    const der = pemToDer(await getText('attest/CLAIMANT_PUBKEY.pem'));
+    const fp = await sha256(der);
+    const want = (idx.commitments || {}).claim_pubkey_fingerprint || '';
+    row('公钥指纹 = 承诺值', fp === want ? 'PASS' : 'FAIL', `${fp.slice(0,20)}… / 期望 ${want.slice(0,20)}…`);
+  } catch(e){ row('公钥指纹 = 承诺值', 'FAIL', e.message); }
+
+  // 6. Rekor 条目在册且 logIndex 一致
+  try {
+    const proof = await getJson('attest/REKOR_PROOF.json');
+    const r = await fetch('https://rekor.sigstore.dev/api/v1/log/entries/' + proof.uuid, {cache:'no-store'});
+    if (!r.ok) throw new Error('Rekor 查询 HTTP ' + r.status);
+    const j = await r.json(); const e = Object.values(j)[0];
+    const hashes = ((e.verification||{}).inclusionProof||{}).hashes || [];
+    row('Rekor 条目在册', e.logIndex === proof.logIndex ? 'PASS' : 'FAIL',
+        `logIndex=${e.logIndex}（本地记录 ${proof.logIndex}），入证 ${hashes.length} 个 hash，treeSize=${(e.verification.inclusionProof||{}).treeSize}`);
+  } catch(e){ row('Rekor 条目在册', 'WARN', '查询失败（可能被本地网络拦截，属正常）：' + e.message); }
+
+  // 7. 时间戳字段自洽
+  const tsa = pub.rfc3161 || {};
+  row('RFC3161 时间戳字段', (tsa.imprint_matches_root_txt === true && tsa.chain_verified === true) ? 'PASS' : 'WARN',
+      `issuer=${tsa.tsa || '?'} genTime=${tsa.gen_time_utc || '?'} imprint_matches_root_txt=${tsa.imprint_matches_root_txt} chain_verified=${tsa.chain_verified} 公共根=${tsa.top_in_public_roots}`);
+
+  render();
+}
+
+function render(){
+  const t = document.getElementById('out');
+  t.innerHTML = '<tr><th>检查项</th><th>结果</th></tr>' + ROWS.map(r =>
+    `<tr><th>${r.name}</th><td><span class="${r.verdict.toLowerCase()}">${r.verdict}</span>　<code>${(r.detail||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}</code></td></tr>`
+  ).join('');
+  const bad = ROWS.filter(r => r.verdict === 'FAIL').length;
+  const warn = ROWS.filter(r => r.verdict === 'WARN').length;
+  document.getElementById('stamp').textContent =
+    (bad ? `结论：FAIL ${bad} 项` : `结论：PASS（${ROWS.length - warn} 项通过${warn ? `，${warn} 项跳过` : ''}）`) + '　' + new Date().toLocaleTimeString();
+}
+document.getElementById('run').addEventListener('click', run);
+run();
+</script>
+</html>

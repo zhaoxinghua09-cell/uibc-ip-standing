@@ -22,3 +22,17 @@ jobs:
           fi
       - name: 承诺件自检（哈希 + 签名 + 跨文件一致）
         run: python scripts/selfcheck.py
+      - name: 浏览器复验页算法一致性（规范字节/指纹）
+        run: node scripts/canon_check.js attest/CLAIM.json attest/CLAIM.json.sig attest/CLAIMANT_PUBKEY.pem
+      - name: 复验页实际加载（无头浏览器跑一遍 verify.html）
+        run: |
+          set -u
+          BIN=$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)
+          if [ -z "$BIN" ]; then echo "::warning::本 runner 无 Chrome，跳过 verify.html 实跑"; exit 0; fi
+          python -m http.server 8099 --bind 127.0.0.1 &
+          SRV=$!
+          sleep 2
+          out=$($BIN --headless=new --no-sandbox --disable-gpu --virtual-time-budget=8000 --dump-dom http://127.0.0.1:8099/verify.html 2>/dev/null || true)
+          kill $SRV 2>/dev/null || true
+          echo "$out" | grep -q '结论：PASS' || { echo "::error::verify.html 未给出 PASS"; exit 1; }
+          if echo "$out" | grep -q 'class="bad">FAIL'; then echo "::error::verify.html 存在 FAIL 项"; exit 1; fi

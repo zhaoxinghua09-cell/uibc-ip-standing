@@ -1,6 +1,6 @@
 {
   "schema": "uibc-ip-public-index/1",
-  "generated_at_local": "2026-11-26T20:31:10+0800",
+  "generated_at_local": "2026-11-26T20:36:02+0800",
   "subject": {
     "name": "IP 权属证据链（2683 文件集合）",
     "claim_id": "UIBC-IP-20261126"
@@ -14,7 +14,8 @@
     "log_anchor_head": "9abd56effd3c0d3da394a7467d666d58742aac76a313b2a97263dc0001f7d0f8",
     "index_ledger_head": "579dde77889048c9a5d3afd21953c23e3ce8ee853024e117c859c851517e114e",
     "claim_pubkey_fingerprint": "866dab20c9ebb067ef38db75ee3f684c275b1fcce21984355ba77decb6a0468e",
-    "claim_signature_sha256": "8012c49412cc04a6217bc78d46413476a80c6bbd501f80a9aa58a01134d8383e"
+    "claim_signature_sha256": "8012c49412cc04a6217bc78d46413476a80c6bbd501f80a9aa58a01134d8383e",
+    "signed_payload_sha256": "e1d07c4dcaff10cabcf37022035a555ed56af294e649c0424c0ca62bf9f3ebb8"
   },
   "bitcoin_anchors": [
     {
@@ -56,9 +57,10 @@
     "guard_level": "OK"
   },
   "verify": {
+    "browser": "打开 verify.html —— 页面内完成 sha256 与 Ed25519 验签、并查 Rekor 条目，零安装、不上传数据",
     "zero_dependency": "python verify_offline.py <解压目录>   # 期望 grade=VERIFIED_STRUCTURE",
     "full": "python verify_pack.py <解压目录>   # 期望 verdict=OK（需 cryptography 与 ots）",
     "external_check": "按 bitcoin_anchors 的高度到 blockstream.info / mempool.space 核对 block_hash 与 merkle_root"
   },
-  "boundary": "本索引只是承诺数值的公开陈列，不构成公证或权属背书；未部署到任何托管方前并不等于'有人替你保管与见证'。数值与证据包内文件不一致即应判为证据失效。"
+  "boundary": "本索引只是承诺数值的公开陈列，不构成公证或权属背书；已部署在 GitHub Pages（公开只读、由第三方平台托管），但这只是可见性，不等于'有人替你保管与见证'——见证回执为 0。数值与证据包内文件不一致即应判为证据失效。"
 }
