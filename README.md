@@ -4,6 +4,8 @@
 
 它**不是**公证，**不是**权属背书，**不**托管原始证据文件。边界写在 [`PUBLISH_SCOPE.md`](PUBLISH_SCOPE.md)。
 
+**公开索引页（已上线）**：<https://zhaoxinghua09-cell.github.io/uibc-ip-standing/> —— 无需登录、无需装任何工具，打开即可看到当前承诺数值；页面源码与 `index.json` 同在本仓库，可自行比对。
+
 ---
 
 ## 一、被承诺的对象
