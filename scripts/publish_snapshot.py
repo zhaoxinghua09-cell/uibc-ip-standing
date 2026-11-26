@@ -180,6 +180,12 @@ def main():
         r = subprocess.run([sys.executable, str(certgen)], cwd=str(src), capture_output=True, text=True)
         if r.returncode != 0:
             sys.exit(f"FATAL: make_certificate.py 生成失败：{r.stderr[-500:]}")
+    # 见证回执模板：必须按当前数值重生成，否则见证人会核出假阴性
+    witgen = src / "make_witness_template.py"
+    if witgen.exists():
+        r = subprocess.run([sys.executable, str(witgen)], cwd=str(src), capture_output=True, text=True)
+        if r.returncode != 0:
+            sys.exit(f"FATAL: make_witness_template.py 生成失败：{r.stderr[-500:]}")
     for n in ("index.html", "index.json", "certificate.html"):
         p = out / "public_index" / n
         if p.exists():

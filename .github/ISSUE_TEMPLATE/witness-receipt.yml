@@ -1,0 +1,74 @@
+name: 见证回执（Witness Receipt）
+description: 提交一份第三方见证回执：你在某时刻独立核到了这些公开数值。请先读 witness.html 的三步说明。
+title: "witness: <你的名字或机构>"
+labels: ["witness"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        提交前请确认：① 你与出具方无雇佣或控制关系；② 你只核数值、不背书内容；③ 回执会公开登记进 `WITNESS_LEDGER.jsonl`（只增）。
+        模板见仓库 `attest/WITNESS_RECEIPT_TEMPLATE.json`（该文件随每次发布刷新为当前数值）。
+  - type: input
+    id: witness_name
+    attributes:
+      label: 见证人名称
+      placeholder: 姓名或机构名
+    validations:
+      required: true
+  - type: textarea
+    id: independence
+    attributes:
+      label: 独立性声明
+      description: 一句话说明你与出具方的关系，证明你不受其控制。
+      placeholder: 本人为某律所合伙人，与出具方无雇佣、无股权、无代理关系。
+    validations:
+      required: true
+  - type: input
+    id: checked_at
+    attributes:
+      label: 核对时间（UTC）
+      placeholder: "2026-11-27T02:10:00Z"
+    validations:
+      required: true
+  - type: textarea
+    id: receipt
+    attributes:
+      label: 回执 JSON（按模板填写 value_recomputed 与 match）
+      render: json
+      placeholder: |
+        {
+          "receipt_version": "1",
+          "witness": {"name": "...", "org": "...", "independence_statement": "..."},
+          "checked_at_local": "...",
+          "items_checked": [ ... ],
+          "conclusion": "MATCH",
+          "public_url": "https://..."
+        }
+    validations:
+      required: true
+  - type: input
+    id: public_url
+    attributes:
+      label: 回执的公开链接
+      description: 你发布回执的地址（博客、Issue、公证存档均可）。
+      placeholder: https://
+    validations:
+      required: true
+  - type: textarea
+    id: commands
+    attributes:
+      label: 你执行的命令（便于他人复现）
+      render: shell
+      placeholder: |
+        curl -s https://zhaoxinghua09-cell.github.io/uibc-ip-standing/attest/ROOT.txt | sha256sum
+        curl -s https://blockstream.info/api/block-height/977354
+        curl -s https://mempool.space/api/block-height/977354
+  - type: checkboxes
+    id: ack
+    attributes:
+      label: 确认
+      options:
+        - label: 我确认上述数值是我本人独立核对的，未使用出具方提供的结论。
+          required: true
+        - label: 我理解该回执只担保数值一致，不构成对内容权属或合法性的背书。
+          required: true
