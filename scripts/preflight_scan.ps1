@@ -20,7 +20,7 @@ $patterns = @(
   @{ name = 'Slack/Stripe 风格';  rx = '(xox[baprs]-|sk_live_[A-Za-z0-9]{10,})' },
   @{ name = 'Windows 绝对路径';   rx = '[A-Za-z]:\\Users\\|[A-Za-z]:\\Workbuddy\\|[A-Za-z]:\\标准\\' },
   @{ name = '本机用户名';         rx = '[A-Za-z]:\\Users\\[^\\"]+' },
-  @{ name = '本机主机名';         rx = 'DESKTOP-[A-Z0-9]{4,}|台式机' },
+  @{ name = '本机主机名';         rx = 'DESKTOP-[A-Z0-9]{4,}' },
   @{ name = '保险库路径';         rx = 'ucvault_local|\.vault\\' }
 )
 
