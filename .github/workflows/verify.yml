@@ -34,6 +34,11 @@ jobs:
           sleep 2
           out=$($BIN --headless=new --no-sandbox --disable-gpu --virtual-time-budget=8000 --dump-dom http://127.0.0.1:8099/verify.html 2>/dev/null || true)
           kill $SRV 2>/dev/null || true
-          echo "$out" | grep -q '结论：PASS' || { echo "::error::verify.html 未给出 PASS"; exit 1; }
+          echo "$out" | grep -q '结论：PASS' || {
+            echo "::error::verify.html 未给出 PASS";
+            echo "--- 逐项结果 ---"
+            echo "$out" | sed 's/<\/tr>/\n/g' | grep -E 'PASS|FAIL|WARN'
+            exit 1
+          }
           if echo "$out" | grep -q '结论：FAIL'; then echo "::error::verify.html 结论为 FAIL"; exit 1; fi
           echo "$out" | grep -o '结论：[^<]*' | head -1
