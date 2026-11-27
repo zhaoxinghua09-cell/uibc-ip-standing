@@ -33,6 +33,24 @@ def load_json(p):
     return json.loads(pathlib.Path(p).read_text(encoding="utf-8"))
 
 
+def fetch_json_retry(url, timeout=25, attempts=3, backoff=2.0):
+    """在线检查必须有界重试：Pages/网关偶发 5xx 不该让第三方看到假 FAIL。
+
+    判据不变：重试全部失败才算 FAIL；成功一次即 PASS。返回 (obj, note)。
+    """
+    import time as _t
+    last = None
+    for i in range(attempts):
+        try:
+            with urllib.request.urlopen(url, timeout=timeout) as r:
+                return json.loads(r.read()), (f"attempt {i + 1}/{attempts}" if i else "")
+        except Exception as e:
+            last = e
+            if i < attempts - 1:
+                _t.sleep(backoff * (i + 1))
+    raise last
+
+
 def parse_root_txt(b):
     out = {}
     for line in b.decode("utf-8").splitlines():
@@ -112,13 +130,11 @@ def check_rekor(repo, offline):
         return
     url = "https://rekor.sigstore.dev/api/v1/log/entries/" + uuid
     try:
-        with urllib.request.urlopen(url, timeout=25) as r:
-            body = r.read()
-        entry = json.loads(body)
+        entry, note = fetch_json_retry(url)
         li = list(entry.values())[0]["logIndex"]
-        add("Rekor v1 在线在册", True, f"logIndex={li}")
+        add("Rekor v1 在线在册", True, f"logIndex={li}" + (f"（{note}）" if note else ""))
     except Exception as e:
-        add("Rekor v1 在线在册", False, f"{type(e).__name__}: {str(e)[:80]}")
+        add("Rekor v1 在线在册", False, f"{type(e).__name__}: {str(e)[:80]}（已重试 3 次）")
 
 
 B58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
@@ -160,12 +176,12 @@ def check_did(repo, offline):
         add("DID 可解析（--offline 跳过）", False, "已跳过，未在线解析", warn=True)
         return
     try:
-        with urllib.request.urlopen((doc.get("service") or [{}])[0].get("serviceEndpoint", "") + "did.json",
-                                    timeout=20) as r:
-            live = json.loads(r.read())
-        add("DID 在线解析且 ID 一致", live.get("id") == doc.get("id"), str(doc.get("id"))[:40])
+        live, note = fetch_json_retry((doc.get("service") or [{}])[0].get("serviceEndpoint", "") + "did.json",
+                                      timeout=20)
+        add("DID 在线解析且 ID 一致", live.get("id") == doc.get("id"),
+            str(doc.get("id"))[:40] + (f"（{note}）" if note else ""))
     except Exception as e:
-        add("DID 在线解析", False, f"{type(e).__name__}: {str(e)[:60]}")
+        add("DID 在线解析", False, f"{type(e).__name__}: {str(e)[:60]}（已重试 3 次）")
 
 
 def run_checks(repo, offline=False):
