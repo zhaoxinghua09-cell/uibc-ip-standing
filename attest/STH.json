@@ -1,5 +1,5 @@
 {
-  "checked_at_local": "2026-11-26T16:27:36+0800",
+  "checked_at_local": "2026-11-27T09:12:25+0800",
   "log_id": "uibc-ip-index-ledger",
   "tree_size": 1,
   "root_hash": "02e24881a175a6e58e29c4199c67b7e9238f49e341a6d8dfc98bd9c48dec8942",
@@ -20,7 +20,7 @@
     "rekor_snapshot": {
       "tree_size": 3997996227,
       "url": "https://rekor.sigstore.dev/api/v1/log",
-      "fetched_at_local": "2026-11-26T16:27:36+0800",
+      "fetched_at_local": "2026-11-27T09:12:25+0800",
       "note": "本轮实测抓取；Rekor 已累计约 40 亿条目"
     },
     "same": [

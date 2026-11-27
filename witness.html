@@ -21,20 +21,28 @@ ol li,ul li{margin:6px 0}
 <tr><th>文件数 / 树深</th><td><code>2683 / 12</code></td></tr>
 <tr><th>ROOT.txt sha256</th><td><code>dda8ccf18d4f1cf1eb62a804fc1e7d1cfcb884f37283d6ead4e0260072992e72</code></td></tr>
 <tr><th>比特币区块（三处）</th><td><code>977354</code> / <code>977367</code> / <code>977390</code></td></tr>
-<tr><th>RFC3161 时间戳</th><td>DigiCert，genTime <code>2026-11-26T04:50:28Z</code></td></tr>
+<tr><th>RFC3161 时间戳</th><td>DigiCert，genTime <code>2026-11-26T13:37:41Z</code>（主令牌；另有 5 家冗余令牌，时点各异，以主令牌为准）</td></tr>
 <tr><th>主张签名指纹</th><td><code>866dab20c9ebb067ef38db75ee3f684c275b1fcce21984355ba77decb6a0468e</code></td></tr>
 </table>
 
 <h2>二、三步拿到你自己的结论</h2>
 <ol>
-<li><b>取公开件</b>：打开索引页 <code>https://zhaoxinghua09-cell.github.io/uibc-ip-standing/</code>，或直接下载 <code>attest/ROOT.txt</code>；不想装工具就开 <code>verify.html</code>（浏览器内跑 8 项）。</li>
+<li><b>取公开件</b>：打开索引页 <code>https://zhaoxinghua09-cell.github.io/uibc-ip-standing/</code>，或直接下载 <code>attest/ROOT.txt</code>；不想装工具就开 <code>verify.html</code>（浏览器内跑 8 项）。
+  <div class="note">想用命令行，三行可复制（无 git、只下载 zip；实测 2026-11-27 于干净机器 <b>4.42 秒</b>）：
+<pre style="background:#f6f8fa;padding:10px;font-size:12px;overflow:auto">curl -sL -o pack.zip https://codeload.github.com/zhaoxinghua09-cell/uibc-ip-standing/zip/refs/heads/main
+python3 -c "import zipfile;zipfile.ZipFile('pack.zip').extractall('.')"
+cd uibc-ip-standing-main &amp;&amp; python3 scripts/verify_min.py</pre>
+预期末行 <code>结论：PASS（10 项通过/警告，0 项失败）</code>。</div>
+</li>
 <li><b>自己核两条</b>：
   <ul>
   <li><code>sha256(ROOT.txt)</code> 是否等于上表的 <code>dda8ccf1…</code>（一条命令即可）；</li>
   <li>任取一个区块高度，到 blockstream.info <b>和</b> mempool.space 各查一次，两源区块哈希是否一致（两边都查，才叫独立）。</li>
   </ul>
 </li>
-<li><b>给出回执</b>：把下面这份 JSON 填好，发到公开仓的 Issue（标题以 <code>witness:</code> 开头），或在任何可公开引用的地方发布并留下链接。回执不需要你担保文件内容，只担保"你在某个时刻亲眼核到了这些数值"。</li>
+<li><b>给出回执</b>：把下面这份 JSON 填好，直接<a href="https://github.com/zhaoxinghua09-cell/uibc-ip-standing/issues/new?title=witness%3A&labels=witness"><b>点这里新建 Issue</b></a>（标题自动带 <code>witness:</code>，正文粘 JSON 即可），或在任何可公开引用的地方发布并留下链接。
+  <div class="note">只需改三处：<code>witness</code>（你的名字或机构）、<code>checked_at_utc</code>（你核对的 UTC 时间）、<code>block_hash_observed</code>（你在浏览器里看到的哈希）。<b>若你算出的值与上表不同，请把差异一并写进回执</b>——那才是最有价值的一份。回执不需要你担保文件内容，只担保"你在某个时刻亲眼核到了这些数值"。</div>
+</li>
 </ol>
 
 <h2>三、回执格式（最小可用）</h2>

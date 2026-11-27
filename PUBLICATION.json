@@ -1,7 +1,7 @@
 {
   "schema": "uibc-ip-publication/1",
   "publication_id": "PUB-20261126-01",
-  "published_at_local": "2026-11-26",
+  "published_at_local": "2026-11-27",
   "chain_of_record": "以家机（单一写者）工作副本为准；本仓库是该副本在发布时刻的承诺快照，不含证据内容",
   "subject": {
     "files": 2683,
@@ -70,12 +70,12 @@
   "claim": {
     "claim_id": "UIBC-IP-20261126",
     "claimant_pubkey_fingerprint_sha256": "866dab20c9ebb067ef38db75ee3f684c275b1fcce21984355ba77decb6a0468e",
-    "signature_file": "attest/CLAIM-SIG-8012c49412cc.txt",
-    "claim_signature_sha256": "8012c49412cc04a6217bc78d46413476a80c6bbd501f80a9aa58a01134d8383e",
-    "signed_payload_sha256": "e1d07c4dcaff10cabcf37022035a555ed56af294e649c0424c0ca62bf9f3ebb8",
+    "signature_file": "attest/CLAIM-SIG-02e5331e83ec.txt",
+    "claim_signature_sha256": "02e5331e83ecf7660ec44423ddd2c43d84380432e065b7c26d132242f9e34e43",
+    "signed_payload_sha256": "06641cd55bbc2b06b540bdaabcecf4915edef6f092caff9a1a74893bc000a846",
     "signed_payload_form": "canonical JSON: sort_keys=True, separators=(',',':'), ensure_ascii=False, UTF-8",
     "signature_ok": true,
-    "claim_reused": true
+    "claim_reused": false
   },
   "audit_log": {
     "lines": 11,
@@ -99,7 +99,7 @@
     "level": "OK",
     "ocsp_verified": 2,
     "crls": 3,
-    "earliest_recheck_by": "2026-11-30"
+    "earliest_recheck_by": "2026-12-01"
   },
   "not_published": [
     "ip/.vault/claimant_ed25519.pem",

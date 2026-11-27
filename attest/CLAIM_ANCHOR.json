@@ -1,19 +1,16 @@
 {
-  "checked_at_local": "2026-11-26T16:27:02+0800",
-  "status": "CONFIRMED",
-  "heights": [
-    977636,
-    977638,
-    977645
-  ],
+  "checked_at_local": "2026-11-27T09:12:05+0800",
+  "status": "PENDING",
+  "heights": [],
   "pending_calendars": [
     "https://alice.btc.calendar.opentimestamps.org",
     "https://bob.btc.calendar.opentimestamps.org",
+    "https://btc.calendar.catallaxy.com",
     "https://finney.calendar.eternitywall.com"
   ],
-  "stamp_note": "复用既有承诺",
-  "signature_sha256": "8012c49412cc04a6217bc78d46413476a80c6bbd501f80a9aa58a01134d8383e",
-  "signature_file_sha256": "677322ee52ded3677ecbfeb07959723247375e01cca1cc466e49f890a6c85f16",
-  "commitment_file": "CLAIM-SIG-8012c49412cc.txt",
-  "proof_file": "CLAIM-SIG-8012c49412cc.txt.ots"
+  "stamp_note": "Submitting to remote calendar https://a.pool.opentimestamps.org\nSubmitting to remote calendar https://b.pool.opentimestamps.org\nSubmitting to remote calendar https://a.pool.eternitywall.com\nSubmitting",
+  "signature_sha256": "02e5331e83ecf7660ec44423ddd2c43d84380432e065b7c26d132242f9e34e43",
+  "signature_file_sha256": "9e907729d5cb3e7099266c1c7ab99b740cda8ba38733efdaecbe957bb470c9e6",
+  "commitment_file": "CLAIM-SIG-02e5331e83ec.txt",
+  "proof_file": "CLAIM-SIG-02e5331e83ec.txt.ots"
 }

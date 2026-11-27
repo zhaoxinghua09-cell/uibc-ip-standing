@@ -1,6 +1,6 @@
 {
   "receipt_version": "1",
-  "request_id": "WITNESSREQ-20261126-233909",
+  "request_id": "WITNESSREQ-20261127-203719",
   "witness": {
     "name": "",
     "org": "",
@@ -56,7 +56,7 @@
     },
     {
       "name": "主张签名字节 sha256",
-      "value_claimed": "8012c49412cc04a6217bc78d46413476a80c6bbd501f80a9aa58a01134d8383e",
+      "value_claimed": "02e5331e83ecf7660ec44423ddd2c43d84380432e065b7c26d132242f9e34e43",
       "value_recomputed": "",
       "match": null
     },

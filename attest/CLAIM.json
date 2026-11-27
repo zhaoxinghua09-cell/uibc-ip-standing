@@ -37,11 +37,11 @@
     ],
     "rfc3161": {
       "tsa": "digicert",
-      "gen_time_utc": "2026-11-26T04:50:28+00:00",
+      "gen_time_utc": "2026-11-26T13:37:41+00:00",
       "imprint_matches": true
     }
   },
-  "issued_at_local": "2026-11-26T13:49:17+0800",
+  "issued_at_local": "2026-11-27T09:11:54+0800",
   "non_repudiation_scope": {
     "what_it_proves": "某私钥持有者在签名时刻对上述摘要与主张文本作出签署，且该签名时刻亦被 OTS 上链锚定。",
     "condition": "不可否认性以私钥未被泄露为前提（RFC 8032 Ed25519 的固有边界）：私钥一旦泄露或被托管方持有，签名者可以主张他人代签，抗抵赖即失效。",

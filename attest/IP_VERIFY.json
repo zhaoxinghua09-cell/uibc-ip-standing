@@ -66,7 +66,7 @@
       "tsa": "digicert",
       "pki_status": 0,
       "meaning": "granted",
-      "gen_time_utc": "2026-11-26T04:50:28+00:00",
+      "gen_time_utc": "2026-11-26T13:37:41+00:00",
       "imprint_matches": true,
       "signature_verified": true,
       "chain_verified": true,
@@ -93,6 +93,16 @@
           "tsa": "freetsa",
           "verified": true,
           "top_in_public_roots": false
+        },
+        {
+          "tsa": "sectigo",
+          "verified": true,
+          "top_in_public_roots": true
+        },
+        {
+          "tsa": "globalsign",
+          "verified": true,
+          "top_in_public_roots": true
         }
       ],
       "ltv": {

@@ -1,8 +1,8 @@
 {
-  "entries": 1,
+  "entries": 2,
   "first_date": "2026-11-26",
-  "last_date": "2026-11-26",
-  "days_covered": 1,
+  "last_date": "2026-11-27",
+  "days_covered": 2,
   "chain_valid": true,
   "gaps": [],
   "gap_count": 0,
@@ -10,6 +10,12 @@
     {
       "seq": 1,
       "date_local": "2026-11-26",
+      "entry_hash_ok": true,
+      "prev_link_ok": true
+    },
+    {
+      "seq": 2,
+      "date_local": "2026-11-27",
       "entry_hash_ok": true,
       "prev_link_ok": true
     }

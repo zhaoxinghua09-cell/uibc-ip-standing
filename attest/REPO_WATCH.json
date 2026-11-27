@@ -1,17 +1,17 @@
 {
-  "checked_at_local": "2026-11-26T21:32:35+08:00",
+  "checked_at_local": "2026-11-27T09:12:56+08:00",
   "level": "OK",
   "checks": {
     "repo": {
       "http": 200,
       "visibility": "public",
-      "pushed_at": "2026-11-26T13:30:39Z",
+      "pushed_at": "2026-11-26T15:40:55Z",
       "ok": true
     },
     "ci": {
       "http": 200,
       "workflow": "verify-commitments",
-      "head_sha": "27cab8fbcf9c",
+      "head_sha": "6b9bd668662d",
       "conclusion": "success",
       "ok": true
     },
@@ -26,14 +26,14 @@
       "http": 200,
       "logIndex": 4121954662,
       "integratedTime": 1795681387,
-      "inclusionProof_hashes": 30,
+      "inclusionProof_hashes": 31,
       "ok": true
     },
     "rekor_v2": {
       "http": 200,
       "logIndex": 217674183,
       "treeSize_when_logged": 217674192,
-      "treeSize_now": 217691420,
+      "treeSize_now": 218595838,
       "checkpoint_origin": "log2025-1.rekor.sigstore.dev",
       "ok": true
     }

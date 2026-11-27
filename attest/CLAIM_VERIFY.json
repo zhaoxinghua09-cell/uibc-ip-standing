@@ -1,11 +1,11 @@
 {
   "signature_ok": true,
-  "signed_payload_sha256": "e1d07c4dcaff10cabcf37022035a555ed56af294e649c0424c0ca62bf9f3ebb8",
+  "signed_payload_sha256": "06641cd55bbc2b06b540bdaabcecf4915edef6f092caff9a1a74893bc000a846",
   "signature_b64_len": 88,
   "pubkey_fingerprint_sha256": "866dab20c9ebb067ef38db75ee3f684c275b1fcce21984355ba77decb6a0468e",
   "key_reused": true,
-  "claim_reused": true,
+  "claim_reused": false,
   "claim_id": "UIBC-IP-20261126",
-  "checked_at_local": "2026-11-26T16:26:39+0800",
+  "checked_at_local": "2026-11-27T09:11:54+0800",
   "note": "claim_reused=true 表示本次未新签（绑定对象未变），沿用既有签名与既有上链承诺"
 }
