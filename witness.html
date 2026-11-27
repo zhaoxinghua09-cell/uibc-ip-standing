@@ -41,24 +41,39 @@ cd uibc-ip-standing-main &amp;&amp; python3 scripts/verify_min.py</pre>
   </ul>
 </li>
 <li><b>给出回执</b>：把下面这份 JSON 填好，直接<a href="https://github.com/zhaoxinghua09-cell/uibc-ip-standing/issues/new?title=witness%3A&labels=witness"><b>点这里新建 Issue</b></a>（标题自动带 <code>witness:</code>，正文粘 JSON 即可），或在任何可公开引用的地方发布并留下链接。
-  <div class="note">只需改三处：<code>witness</code>（你的名字或机构）、<code>checked_at_utc</code>（你核对的 UTC 时间）、<code>block_hash_observed</code>（你在浏览器里看到的哈希）。<b>若你算出的值与上表不同，请把差异一并写进回执</b>——那才是最有价值的一份。回执不需要你担保文件内容，只担保"你在某个时刻亲眼核到了这些数值"。</div>
+  <div class="note">只需改四处：<code>witness.name</code>（你的名字或机构）、<code>independence_statement</code>、<code>checked_at_local</code>、<code>public_url</code>。<b>若你算出的值与下表不同，请把差异一并写进回执</b>——那才是最有价值的一份。回执不需要你担保文件内容，只担保"你在某个时刻亲眼核到了这些数值"。</div>
 </li>
 </ol>
 
 <h2>三、回执格式（最小可用）</h2>
-<p>字段对齐仓内 <code>attest/WITNESS_RECEIPT_TEMPLATE.json</code>：</p>
+<p>下面这段**就是** <code>attest/WITNESS_RECEIPT_TEMPLATE.json</code> 的字段（值已按本仓当前承诺预填，照抄即可）。只需要填四处：<code>witness.name</code>、<code>independence_statement</code>、<code>checked_at_local</code>、<code>public_url</code>；<code>value_recomputed</code> 与 <code>match</code> 你愿意自算就填（填了会被核），不愿意就留空——两个区块浏览器那一层我们会独立再核一次。</p>
 <pre style="background:#f6f8fa;padding:12px;font-size:12px;overflow:auto">{
-  "witness": "&lt;你的名字或机构&gt;",
-  "witness_independence": "&lt;说明你不受出具方雇佣/控制&gt;",
-  "checked_at_utc": "&lt;你做核对的 UTC 时间&gt;",
-  "root_txt_sha256_observed": "&lt;你算出来的值&gt;",
-  "merkle_root_observed": "&lt;你从页面抄下/接口取到的值&gt;",
-  "block_heights_checked": [977354],
-  "block_hash_observed": "&lt;你从区块浏览器看到的哈希&gt;",
-  "sources": ["&lt;你用的两个区块浏览器链接&gt;"],
-  "statement": "我核对了上述数值彼此一致，未核对原始文件内容。",
+  "receipt_version": "1",
+  "request_id": "&lt;仓内模板的 request_id&gt;",
+  "witness": {
+    "name": "&lt;你的名字或机构&gt;",
+    "org": "&lt;单位，可空&gt;",
+    "role": "&lt;身份，可空&gt;",
+    "contact": "&lt;联系方式，可空&gt;",
+    "independence_statement": "&lt;说明你不受出具方雇佣/控制&gt;"
+  },
+  "checked_at_local": "&lt;你做核对的本地时间&gt;",
+  "items_checked": [
+    { "name": "文件集合 Merkle 根", "value_claimed": "bd08d9b237d16aebc1f3fc03c738168e398814407d20e07abda3388cec17773a", "value_recomputed": "", "match": null },
+    { "name": "ROOT.txt sha256",     "value_claimed": "dda8ccf18d4f1cf1eb62a804fc1e7d1cfcb884f37283d6ead4e0260072992e72", "value_recomputed": "", "match": null },
+    { "name": "比特币区块高度",       "value_claimed": [977354, 977367, 977390], "value_recomputed": "", "match": null },
+    { "name": "比特币区块哈希",       "value_claimed": ["00000000000000000000511422470fe101bd955fff49df9144ca8dafd92df1fa","0000000000000000000149815f74ebe24750314def0b78ba173ac3614539fb30","000000000000000000004f93e9b31059b03d08dcd502031eceeb5e8f3d53c0dd"], "value_recomputed": "", "match": null },
+    { "name": "RFC3161 genTime",      "value_claimed": "2026-11-26T13:37:41+00:00", "value_recomputed": "", "match": null },
+    { "name": "日志外锚链头",         "value_claimed": "9abd56effd3c0d3da394a7467d666d58742aac76a313b2a97263dc0001f7d0f8", "value_recomputed": "", "match": null },
+    { "name": "索引台账链头",         "value_claimed": "579dde77889048c9a5d3afd21953c23e3ce8ee853024e117c859c851517e114e", "value_recomputed": "", "match": null }
+  ],
+  "commands_run": ["&lt;你跑了什么命令，可空&gt;"],
+  "tool_env": { "os": "&lt;系统&gt;", "python": "&lt;版本，可空&gt;", "cryptography_installed": null },
+  "conclusion": "MATCH",
+  "signature": { "scheme": "", "public_key": "", "signature_b64": "" },
   "public_url": "&lt;这份回执的公开链接&gt;"
 }</pre>
+<p>若你只愿填一个"最小版"，扁平写法也收（<code>witness</code> 为字符串 + <code>root_txt_sha256_observed</code> / <code>merkle_root_observed</code> / <code>block_heights_checked</code> / <code>public_url</code>），接收端会自动无损映射；但<b>两种形状都只按同一套数值与双源区块核对判 MATCH</b>，不因形状宽松而放宽结论。</p>
 <p>收到后我们会把它登记进 <code>WITNESS_LEDGER.jsonl</code>（只增、带哈希链），并在索引页显示回执数。回执一经登记，就可以被他人拿来与本仓数值对账。</p>
 
 <h2>四、见证人应满足什么</h2>
